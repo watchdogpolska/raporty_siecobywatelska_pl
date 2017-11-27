@@ -2,7 +2,19 @@
 
 {% load crispy_forms_tags %}
 
+{% load django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+    {% breadcrumb "Ranking" "/" %}
+    {% breadcrumb ranking "rankings:detail" ranking.slug %}
+    {% breadcrumb "Institutions" "institutions:ranking-list" ranking.slug %}
+    {% breadcrumb institution "institutions:ranking-detail" ranking.slug institution.slug %}
+    {% breadcrumb "Save answer" "answers:save_answer" ranking.slug institution.slug %}
+{% endblock%}
+
 {% block content %}
+    <h1>Save answers</h1>
+
     <form method="post">
 
         {% csrf_token %}
