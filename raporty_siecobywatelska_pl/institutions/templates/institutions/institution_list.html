@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% load bootstrap_pagination %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+    {% breadcrumb "Ranking" "/" %}
+    {% breadcrumb ranking "rankings:detail" ranking.slug %}
+    {% breadcrumb "Institutions" "institutions:ranking-list" ranking.slug %}
+{% endblock%}
+
+{% block content %}
+
+    <h1>{{ ranking }}</h1>
+
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a href="{{ ranking.get_absolute_url }}" class="nav-link" role="tab" >Ranking</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a href="{% url 'institutions:ranking-list' ranking.slug %}" class="nav-link active" role="tab">Instytucje</a>
+        </li>
+    </ul>
+
+    <h2>Institutions</h2>
+
+    {% if object_list %}
+        <ul>
+        {% for object in object_list %}
+            <li>
+                <a href="{% url 'institutions:ranking-detail' ranking.slug object.slug %}">{{ object }}</a>
+            </li>
+        {% endfor %}
+        </ul>
+        {% bootstrap_paginate page_obj %}
+    {% else %}
+        No result found
+    {% endif %}
+{% endblock %}

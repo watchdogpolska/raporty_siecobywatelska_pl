@@ -1,0 +1,27 @@
+{% extends "ranking/base.html" %}
+
+{% load bootstrap_pagination %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+    {% breadcrumb "Ranking" "/" %}
+{% endblock%}
+
+
+{% block content %}
+
+    <h1>Rankings</h1>
+
+    {% if object_list %}
+        <ul>
+        {% for object in object_list %}
+            <li>
+                <a href="{{ object.get_absolute_url }}"> {{ object }}</a>
+            </li>
+        {% endfor %}
+        </ul>
+        {% bootstrap_paginate page_obj %}
+    {% else %}
+        No result found
+    {% endif %}
+{% endblock %}
