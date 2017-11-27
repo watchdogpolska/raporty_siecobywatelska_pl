@@ -11,6 +11,7 @@ from raporty_siecobywatelska_pl.answers.models import Answer
 
 from raporty_siecobywatelska_pl.institutions.models import Institution
 from raporty_siecobywatelska_pl.questionnaire.models import Question
+from raporty_siecobywatelska_pl.ranking.models import Ranking
 
 
 class AnswerForm(forms.ModelForm):
@@ -69,6 +70,7 @@ class AnswerFormSet(BaseInlineFormSet):
     def get_form_kwargs(self, index):
         kwargs = super(AnswerFormSet, self).get_form_kwargs(index=index)
 
+        # TODO: Optimize. This method is performed repeatedly
         try:
             answer = Answer.objects.get(institution=self.instance, question=self.questions[index])
         except Answer.DoesNotExist:
@@ -100,13 +102,16 @@ class AnswerSaveView(TemplateView):
         return Institution.objects.get(slug=institution_slug)
 
     @cached_property
-    def questions(self):
+    def ranking(self):
         ranking_slug = self.kwargs['ranking_slug']
-        return Question.objects.filter(group__ranking__slug=ranking_slug)
+        return Ranking.objects.get(slug=ranking_slug)
+
+    @cached_property
+    def questions(self):
+        return Question.objects.filter(group__ranking=self.ranking)
 
     def get(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
-        # import ipdb; ipdb.set_trace()
         return self.render_to_response(context)
 
     def get_formset(self):
@@ -143,9 +148,11 @@ class AnswerSaveView(TemplateView):
         context.update({
             'formset': self.get_formset(),
             'institution': self.institution,
+            'ranking': self.ranking,
             'questions': self.questions,
             'helper': AnswerFormSetHelper()
         })
+
         return context
 
     def formset_invalid(self, formset):

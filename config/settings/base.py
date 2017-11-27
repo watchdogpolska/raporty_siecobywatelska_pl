@@ -41,6 +41,10 @@ DJANGO_APPS = [
     # Useful template tags:
     # 'django.contrib.humanize',
 
+    # Must be before 'django.contrib.admin'
+    'dal',
+    'dal_select2',
+
     # Admin
     # 'jet',
     'django.contrib.admin',
@@ -55,7 +59,8 @@ THIRD_PARTY_APPS = [
     'mptt',
     'bootstrap_pagination',
     'tinymce',
-    'django_bootstrap_breadcrumbs'
+    'django_bootstrap_breadcrumbs',
+    'django_filters'
 ]
 
 # Apps specific for this project go here.

@@ -2,6 +2,7 @@
 
 {% load bootstrap_pagination %}
 {% load django_bootstrap_breadcrumbs %}
+{% load crispy_forms_tags %}
 
 {% block breadcrumbs %}
     {% breadcrumb "Ranking" "/" %}
@@ -23,17 +24,29 @@
     </ul>
 
     <h2>Institutions</h2>
+    <div class="row">
+        <div class="col-md-3">
+            {% crispy filter.form %}
+        </div>
+        <div class="col-md-9">
+            {% if object_list %}
+                <ul>
+                {% for object in object_list %}
+                    <li>
+                        <a href="{% url 'institutions:ranking-detail' ranking.slug object.slug %}">{{ object }}</a>
+                    </li>
+                {% endfor %}
+                </ul>
+                {% bootstrap_paginate page_obj %}
+            {% else %}
+                No result found
+            {% endif %}
+        </div>
+    </div>
 
-    {% if object_list %}
-        <ul>
-        {% for object in object_list %}
-            <li>
-                <a href="{% url 'institutions:ranking-detail' ranking.slug object.slug %}">{{ object }}</a>
-            </li>
-        {% endfor %}
-        </ul>
-        {% bootstrap_paginate page_obj %}
-    {% else %}
-        No result found
-    {% endif %}
 {% endblock %}
+
+{% block javascript %}
+    {{ block.super }}
+    {{ filter.form.media }}
+{% endblock javascript %}

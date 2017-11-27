@@ -20,6 +20,9 @@ django-bootstrap-pagination==1.6.3
 django_tinymce==2.6.0
 django-bootstrap-breadcrumbs==0.8.2
 
+# View
+django-filter-1.1.0
+
 # Models
 django-model-utils==3.0.0
 django-autoslug==1.9.3

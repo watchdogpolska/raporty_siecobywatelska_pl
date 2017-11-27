@@ -16,4 +16,9 @@ urlpatterns = [
         views.RankingInstitutionListView.as_view(),
         name="ranking-list"
     ),
+    url(
+        _(r'^institution/autocomplete$'),
+        views.InstitutionAutocomplete.as_view(),
+        name="institution-autocomplete"
+    ),
 ]

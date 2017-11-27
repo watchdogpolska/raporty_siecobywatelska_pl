@@ -20,8 +20,9 @@ urlpatterns = [
     url(r'^', include('raporty_siecobywatelska_pl.ranking.urls', namespace='rankings')),
     url(r'^', include('raporty_siecobywatelska_pl.institutions.urls', namespace='institutions')),
     url(r'^', include('raporty_siecobywatelska_pl.answers.urls', namespace='answers')),
+    url(r'^', include('raporty_siecobywatelska_pl.teryt.urls', namespace='teryt')),
 
-     # Your stuff: custom urls includes go here
+    # Your stuff: custom urls includes go here
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

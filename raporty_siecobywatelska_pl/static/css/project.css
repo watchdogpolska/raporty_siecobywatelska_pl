@@ -19,3 +19,8 @@
 [hidden][style="display: block;"] {
   display: block !important;
 }
+
+
+.select2-container {
+  min-width: auto !important;
+}
