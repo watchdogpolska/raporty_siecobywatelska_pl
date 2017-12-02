@@ -12,7 +12,7 @@ django==1.10.8 # pyup: >=1.10,<1.11
 django-environ==0.4.4
 
 # Admin
-django-jet-1.0.6
+django-jet==1.0.6
 
 # UI
 django-crispy-forms==1.7.0
@@ -21,7 +21,7 @@ django_tinymce==2.6.0
 django-bootstrap-breadcrumbs==0.8.2
 
 # View
-django-filter-1.1.0
+django-filter==1.1.0
 
 # Models
 django-model-utils==3.0.0
