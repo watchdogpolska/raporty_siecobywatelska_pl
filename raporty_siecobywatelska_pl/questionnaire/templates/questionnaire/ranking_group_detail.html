@@ -1,0 +1,78 @@
+{% extends "base-ranking.html" %}
+
+{% load django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+    {% breadcrumb "Ranking" "/" %}
+    {% breadcrumb request.ranking "rankings:detail" request.ranking.slug %}
+    {% breadcrumb "Groups" "questionnaire:ranking-group-list" request.ranking.slug %}
+    {% breadcrumb object "questionnaire:ranking-group-detail" request.ranking.slug object.slug %}
+{% endblock%}
+
+{% block content %}
+
+
+    <h1 class="mb-4">{{ object }}</h1>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="rwp-card rwp-card--primary">
+                <div class="rwp-card__head">
+                    <div class="rwp-card__icon">
+                        <i class="fa fa-file-text" aria-hidden="true"></i>
+                    </div>
+                    <div class="rwp-card__header">
+                        <div class="rwp-card__title">
+                            Opis
+                        </div>
+                    </div>
+                </div>
+                <div class="rwp-card__content">
+                    {{ object.description | safe }}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            {% if institution_group_rate %}
+                <div class="rwp-card rwp-card--secondary">
+                    <div class="rwp-card__head">
+                        <div class="rwp-card__icon">
+                            <i class="fa fa-university" aria-hidden="true"></i>
+                        </div>
+                        <div class="rwp-card__header">
+                            <div class="rwp-card__title">
+                                Best institutions
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Nazwa</th>
+                            <th>{{ object }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for rate in institution_group_rate %}
+                            <tr>
+                                <td>
+                                    <a href="{% url 'institutions:ranking-detail' ranking.slug rate.institution.slug %}">
+                                        {{ rate.institution }}
+                                    </a>
+                                </td>
+                                <td>
+                                    {{ rate }}
+                                </td>
+                            </tr>
+
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+
+{% endblock %}

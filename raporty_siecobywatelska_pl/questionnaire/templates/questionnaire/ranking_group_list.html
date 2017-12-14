@@ -1,0 +1,43 @@
+{% extends "base-ranking.html" %}
+
+{% load bootstrap_pagination %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+    {% breadcrumb "Ranking" "/" %}
+    {% breadcrumb request.ranking "rankings:detail" request.ranking.slug %}
+    {% breadcrumb "Groups" "questionarie:ranking-list" request.ranking.slug %}
+{% endblock%}
+
+{% block content %}
+    <h1>Groups</h1>
+
+    {% if object_list %}
+       <div class="row">
+            {% for object in object_list %}
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <a href="{% url "questionnaire:ranking-group-detail" request.ranking.slug object.slug %}" class="rwp-card rwp-card--azure">
+                        <div class="rwp-card__img">
+                            <img src="http://lorempixel.com/400/200/cats/" alt="">
+                        </div>
+                        <div class="rwp-card__head">
+                            <div class="rwp-card__header">
+                                <div class="rwp-card__title">{{ object }}</div>
+                            </div>
+                        </div>
+                        <div class="rwp-card__content">
+                            {{ object.description | truncatewords:80 }}
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+
+        {% bootstrap_paginate page_obj %}
+
+    {% else %}
+        <p>
+            No groups found
+        </p>
+    {% endif %}
+{% endblock %}

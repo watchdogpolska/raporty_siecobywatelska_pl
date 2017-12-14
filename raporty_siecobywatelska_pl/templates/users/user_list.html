@@ -1,9 +1,9 @@
-{% extends "base.html" %}
+{% extends "base-settings.html.html" %}
 {% load static i18n %}
 {% block title %}Members{% endblock %}
 
-{% block content %}
-  <h2>Users</h2>
+{% block card_content %}
+  <h1>Users</h1>
 
   <div class="list-group">
     {% for user in user_list %}
@@ -12,4 +12,4 @@
       </a>
     {% endfor %}
   </div>
-{% endblock content %}
+{% endblock card_content  %}

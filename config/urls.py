@@ -20,7 +20,10 @@ urlpatterns = [
     url(r'^', include('raporty_siecobywatelska_pl.ranking.urls', namespace='rankings')),
     url(r'^', include('raporty_siecobywatelska_pl.institutions.urls', namespace='institutions')),
     url(r'^', include('raporty_siecobywatelska_pl.answers.urls', namespace='answers')),
-    url(r'^', include('raporty_siecobywatelska_pl.teryt.urls', namespace='teryt')),
+    url(r'^', include('raporty_siecobywatelska_pl.questionnaire.urls', namespace='questionnaire')),
+    url(r'^', include('raporty_siecobywatelska_pl.articles.urls', namespace='articles')),
+    url(r'^', include('raporty_siecobywatelska_pl.analysis.urls', namespace='analysis')),
+    url(r'^teryt/', include('raporty_siecobywatelska_pl.teryt.urls', namespace='teryt')),
 
     # Your stuff: custom urls includes go here
 

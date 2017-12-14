@@ -1,0 +1,77 @@
+{% extends "base-ranking.html" %}
+
+{% load bootstrap_pagination %}
+{% load django_bootstrap_breadcrumbs %}
+{% load crispy_forms_tags %}
+
+{% block breadcrumbs %}
+    {% breadcrumb "Ranking" "/" %}
+    {% breadcrumb request.ranking "rankings:detail" request.ranking.slug %}
+    {% breadcrumb "Institutions" "institutions:ranking-list" request.ranking.slug %}
+{% endblock%}
+
+{% block content %}
+
+    <h1>Compare</h1>
+
+    {% for row in table.body %}
+        {% for cell in row %}
+            {% if cell.column_type == "name"%}
+                <div class="rwp-card rwp-card--primary">
+                    <div class="rwp-card__head">
+                        <div class="rwp-card__header">
+                            <div class="rwp-card__title">
+                                {% if cell.row_type == "total" %}
+                                    Total
+                                {% else %}
+                                    <a href="{% url 'questionnaire:ranking-group-detail' ranking.slug cell.group.slug %}">{{ cell.group }}</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rwp-card__content">
+            {% else %}
+                {% if forloop.counter == 2 %}
+                    <ul>
+                {% endif %}
+                <li>
+                    <div class="row">
+                        <div class="col-12 col-md-2">
+                            {{ cell.institution }}
+                        </div>
+                        <div class="col-9 col-md-9">
+                            <div class="progress">
+                                <div
+                                    class="progress-bar{% if cell.row_type == "total" %} bg-success{% endif %}"
+                                    role="progressbar"
+                                    style="width: {% if cell.value > 100 %}100%{% else %}{{ cell.rate }}{% endif %}"
+                                    aria-valuenow="{{ cell.rate.value }}"
+                                    aria-valuemin="0"
+                                    aria-valuemax="100">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3 col-md-1">
+                            <span class="float-right badge badge-secondary">{{ cell.rate }}</span>
+                        </div>
+                    </div>
+
+                </li>
+                {% if forloop.last %}
+                    </div>
+                </div>
+                {% endif %}
+            {% endif %}
+
+        {% endfor %}
+
+    {% endfor %}
+
+
+
+{% endblock %}
+
+{% block javascript %}
+    {{ block.super }}
+    {{ filter.form.media }}
+{% endblock javascript %}

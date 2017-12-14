@@ -38,9 +38,6 @@ DJANGO_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # Useful template tags:
-    # 'django.contrib.humanize',
-
     # Must be before 'django.contrib.admin'
     'dal',
     'dal_select2',
@@ -54,6 +51,9 @@ THIRD_PARTY_APPS = [
     'allauth',  # registration
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.github',
     'teryt_tree', # https://github.com/ad-m/django-teryt-tree
     'atom',
     'mptt',
@@ -72,6 +72,9 @@ LOCAL_APPS = [
     'raporty_siecobywatelska_pl.ranking',
     'raporty_siecobywatelska_pl.questionnaire',
     'raporty_siecobywatelska_pl.answers',
+    'raporty_siecobywatelska_pl.rates',
+    'raporty_siecobywatelska_pl.articles',
+    'raporty_siecobywatelska_pl.analysis',
 
     # Your stuff: custom apps go here
 ]
@@ -89,7 +92,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'raporty_siecobywatelska_pl.ranking.middleware.CurrentRankingMiddleware',
 ]
+
 
 # MIGRATIONS CONFIGURATION
 # ------------------------------------------------------------------------------
@@ -275,6 +280,7 @@ AUTHENTICATION_BACKENDS = [
 ACCOUNT_AUTHENTICATION_METHOD = 'username'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 
 ACCOUNT_ALLOW_REGISTRATION = env.bool('DJANGO_ACCOUNT_ALLOW_REGISTRATION', True)
 ACCOUNT_ADAPTER = 'raporty_siecobywatelska_pl.users.adapters.AccountAdapter'

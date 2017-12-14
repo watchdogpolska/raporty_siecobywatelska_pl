@@ -1,0 +1,225 @@
+{% load static i18n %}
+{% load django_bootstrap_breadcrumbs %}
+{% load sidebar %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{% block title %}Raporty Siec Obywatelska{% endblock title %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
+
+    {% block css %}
+        <!-- Latest compiled and minified Bootstrap 4 beta CSS -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+              rel="stylesheet"
+              integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+              crossorigin="anonymous">
+        <!-- Your stuff: Third-party CSS libraries go here -->
+
+        <!-- This file stores project-specific CSS -->
+        <link href="{% static 'css/project.css' %}" rel="stylesheet">
+
+    {% endblock %}
+
+</head>
+
+<body>
+
+<div class="wrapper">
+    <div class="sidebar">
+        <div class="sidebar__header">
+            <div class="logo"></div>
+        </div>
+        <div class="sidebar__content">
+            <nav class="sidenav">
+                <div class="sidebar__nav">
+                    {% if request.user.is_authenticated %}
+                        <ul class="sidenav__list">
+                            <li class="sidenav__item">
+                                <div class="sidenav__link user-info">
+                                    <div class="user-info__user">
+                                        <div class="user-info__avatar">
+                                            <img src="https://dummyimage.com/80x80/730073/ffffff" alt="">
+                                        </div>
+                                        <div class="user-info__name">
+                                            {{ request.user }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="user-info__actions">
+                                    <nav class="sidenav">
+                                        <ul class="sidenav__list">
+                                            <li class="sidenav__item sidenav__item--item">
+                                                <a href="{% url 'users:detail' request.user.username %}" class="sidenav__link">
+                                                    <span class="sidenav__icon"><i class="fa fa-user"></i></span>
+                                                    <span class="sidenav__label">{% trans "My profile" %}</span>
+                                                </a>
+                                            </li>
+                                            <li class="sidenav__item sidenav__item--item">
+                                                <a href="{% url 'account_logout' %}" class="sidenav__link">
+                                                    <span class="sidenav__icon"><i class="fa fa-sign-out"></i></span>
+                                                    <span class="sidenav__label">{% trans "Sign Out" %}</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </li>
+                        </ul>
+                    {% else %}
+                         <ul class="sidenav__list">
+                            <li class="sidenav__item">
+                                <a class="sidenav__link" href="{% url 'account_signup' %}">
+                                    <span class="sidenav__icon"><i class="fa fa-sign-in"></i></span>
+                                    {% trans "Sign Up" %}
+                                </a>
+                            </li>
+                            <li class="sidenav__item">
+                                <a class="sidenav__link" href="{% url 'account_login' %}">
+                                    <span class="sidenav__icon"><i class="fa fa-user"></i></span>
+                                    {% trans "Sign In" %}
+                                </a>
+                            </li>
+                        </ul>
+                    {% endif %}
+                    <div class="sidenav__hr"></div>
+                    <ul class="sidenav__list">
+                        <li class="sidenav__item{% sidenav_item_active "rankings:detail" request.ranking.slug %}">
+                            <a href="{% url "rankings:detail" request.ranking.slug %}" class="sidenav__link">
+                                <span class="sidenav__icon"><i class="fa fa-briefcase" aria-hidden="true"></i></span>
+                                <span class="sidenav__label">Informacje</span>
+                            </a>
+                        </li>
+                        <li class="sidenav__item{% sidenav_item_active "questionnaire:ranking-group-list" request.ranking.slug %}">
+                            <a href="{% url "questionnaire:ranking-group-list" request.ranking.slug %}" class="sidenav__link">
+                                <span class="sidenav__icon"><i class="fa fa-balance-scale" aria-hidden="true"></i></span>
+                                <span class="sidenav__label">Groups</span>
+                            </a>
+                        </li>
+                        <li class="sidenav__item{% sidenav_item_active "institutions:ranking-list" request.ranking.slug %}">
+                            <a href="{% url "institutions:ranking-list" request.ranking.slug %}" class="sidenav__link">
+                                <span class="sidenav__icon"><i class="fa fa-university" aria-hidden="true"></i></span>
+                                <span class="sidenav__label">Institutions</span>
+                            </a>
+                        </li>
+                        <li class="sidenav__item{% sidenav_item_active "analysis:analysis-list" request.ranking.slug %}">
+                            <a href="{% url "analysis:analysis-list" request.ranking.slug %}" class="sidenav__link">
+                                <span class="sidenav__icon"><i class="fa fa-bar-chart" aria-hidden="true"></i></span>
+                                <span class="sidenav__label">Analysis</span>
+                            </a>
+                        </li>
+                        <li class="sidenav__item{% sidenav_item_active "articles:ranking-article-list" request.ranking.slug %}">
+                            <a href="{% url "articles:ranking-article-list" request.ranking.slug %}" class="sidenav__link">
+                                <span class="sidenav__icon"><i class="fa fa-book" aria-hidden="true"></i></span>
+                                <span class="sidenav__label">Articles</span>
+                            </a>
+                        </li>
+                    </ul>
+
+                </div>
+            </nav>
+        </div>
+    </div>
+    <div class="main-panel">
+        <div class="m-b-1">
+            <nav class="navbar navbar-expand-md navbar-light bg-light">
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                      {% topbar_dropdown %}
+                    </ul>
+
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'about' %}">About</a>
+                        </li>
+                        {% if request.user.is_authenticated %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'users:detail' request.user.username %}">
+                                    {% trans "My Profile" %}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'account_logout' %}">
+                                    {% trans "Sign Out" %}
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a id="sign-up-link" class="nav-link" href="{% url 'account_signup' %}">
+                                    {% trans "Sign Up" %}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a id="log-in-link" class="nav-link" href="{% url 'account_login' %}">
+                                    {% trans "Sign In" %}
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <div class="container-fluid">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+
+            {% block breadcrumbs %}
+
+            {% endblock%}
+
+            {% render_breadcrumbs %}
+
+            {% block content %}
+                <p>Use this document as a way to quick start any new project.</p>
+            {% endblock content %}
+        </div>
+    </div>
+
+
+{% block modal %}{% endblock modal %}
+
+<!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+{% block javascript %}
+    <!-- Required by Bootstrap v4 beta -->
+    <script src="https://code.jquery.com/jquery-3.2.1.js"
+            integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+            integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+            integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+            crossorigin="anonymous"></script>
+
+    <!-- Your stuff: Third-party javascript libraries go here -->
+
+    <!-- place project specific Javascript in this file -->
+    <script src="{% static 'js/project.js' %}"></script>
+
+
+{% endblock javascript %}
+</body>
+</html>
+

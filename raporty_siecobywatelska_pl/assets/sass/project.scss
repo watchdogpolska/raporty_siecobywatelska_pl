@@ -1,0 +1,147 @@
+
+@import "custom_bootstrap_vars";
+@import "bootstrap/scss/bootstrap";
+@import "components/card";
+@import "components/stats";
+@import "components/actions";
+
+
+
+
+.wrapper {
+  position: relative;
+  top: 0;
+  height: 100vh;
+}
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  width: 200px;
+  background: black;
+  color: white;
+}
+.sidebar__header {
+  height: 75px;
+}
+.sidebar__content {
+  overflow: auto;
+  height: calc(100vh - 75px);
+  padding: 8px 16px;
+}
+
+.main-panel {
+  position: relative;
+  float: right;
+  width: calc(100% - 200px);
+}
+
+.user-info__user {
+  display: flex;
+  align-items: center;
+}
+.user-info__avatar {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.user-info__name {
+  padding-left: 8px;
+}
+.user-info__avatar img {
+  width: 100%;
+}
+.sidebar__nav {
+
+}
+.sidenav {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.sidenav__hr {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-top: 1px solid #555;
+}
+.sidenav__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.sidenav__link {
+  padding: 5px;
+  &:hover, &:focus {
+    background: rgba(white, 0.15);
+  }
+}
+.sidenav__item--active {
+  &, &:focus, &:hover {
+    background: theme-color("primary");
+  }
+}
+.sidenav__link {
+  display: block;
+  padding: 12px 16px;
+  color: white;
+  &:focus, &:hover {
+    color: white;
+    text-decoration: none;
+  }
+  .sidenav__item--small & {
+    padding: 4px 16px;
+    font-size: .8em;
+  }
+}
+// project specific CSS goes here
+
+////////////////////////////////
+		//Variables//
+////////////////////////////////
+
+// Alert colors
+
+$white: #fff;
+$mint-green: #d6e9c6;
+$black: #000;
+$pink: #f2dede;
+$dark-pink: #eed3d7;
+$red: #b94a48;
+
+////////////////////////////////
+		//Alerts//
+////////////////////////////////
+
+// bootstrap alert CSS, translated to the django-standard levels of
+// debug, info, success, warning, error
+
+.alert-debug {
+  background-color: $white;
+  border-color: $mint-green;
+  color: $black;
+}
+
+.alert-error {
+  background-color: $pink;
+  border-color: $dark-pink;
+  color: $red;
+}
+
+////////////////////////////////
+		//Django Toolbar//
+////////////////////////////////
+
+// Display django-debug-toolbar.
+// See https://github.com/django-debug-toolbar/django-debug-toolbar/issues/742
+// and https://github.com/pydanny/cookiecutter-django/issues/317
+
+[hidden][style="display: block;"] {
+  display: block !important;
+}
+
+.select2-container {
+  min-width: 100% !important;
+}

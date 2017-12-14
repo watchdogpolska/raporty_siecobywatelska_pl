@@ -1,0 +1,47 @@
+{% extends "base-ranking.html" %}
+
+{% load bootstrap_pagination %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+    {% breadcrumb "Ranking" "/" %}
+    {% breadcrumb request.ranking "rankings:detail" request.ranking.slug %}
+    {% breadcrumb "Articles" "article:article-list" request.ranking.slug %}
+{% endblock%}
+
+{% block content %}
+
+    <h1>Articles</h1>
+
+    {% if object_list.all %}
+        <div class="row">
+            {% for object in object_list %}
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <a href="{{ object.get_absolute_url }}" class="rwp-card">
+                        <div class="rwp-card__img">
+                            <img src="http://lorempixel.com/400/200/cats/" alt="">
+                        </div>
+                        <div class="rwp-card__head">
+                            <div class="rwp-card__header">
+                                <div class="rwp-card__title">{{ object }}</div>
+                            </div>
+                        </div>
+                        <div class="rwp-card__content">
+                            {{ object.short_description | truncatewords:80 }}
+                        </div>
+                        <div class="rwp-card__footer">
+                            <i class="fa fa-clock-o"></i> Data utworzenia: {{ object.created |date:"d m Y" }}
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+        {% bootstrap_paginate page_obj %}
+
+    {% else %}
+        <p>
+            No articles found
+        </p>
+    {% endif %}
+
+{% endblock %}

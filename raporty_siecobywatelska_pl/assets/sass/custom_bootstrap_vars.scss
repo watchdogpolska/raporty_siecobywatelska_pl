@@ -1,0 +1,17 @@
+$enable-rounded:            false!default;
+
+$navbar-padding-y:   1rem;
+
+$body-bg: #EEE;
+
+$primary: #D72626;
+$secondary: #4C4C4C;
+
+$theme-colors: (
+  "primary": $primary,
+  "green": #1D881D,
+  "azure": #198585,
+  "secondary": $secondary
+);
+
+$breadcrumb-bg: transparent;

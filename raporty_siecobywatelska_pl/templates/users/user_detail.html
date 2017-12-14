@@ -1,19 +1,23 @@
-{% extends "base.html" %}
+{% extends "base-settings.html" %}
 {% load static %}
 
 {% block title %}User: {{ object.username }}{% endblock %}
 
-{% block content %}
+{% block card_icon %}
+    <i class="fa fa-user" aria-hidden="true"></i>
+{% endblock %}
 
-    <div class="row">
-        <div class="col-sm-12">
+{% block card_title %}
+    Users
+{% endblock %}
 
-            <h2>{{ object.username }}</h2>
-            {% if object.name %}
-                <p>{{ object.name }}</p>
-            {% endif %}
-        </div>
-    </div>
+{% block card_content %}
+
+
+    <h1>{{ object.username }}</h1>
+    {% if object.name %}
+        <p>{{ object.name }}</p>
+    {% endif %}
 
     {% if object == request.user %}
         <!-- Action buttons -->
@@ -34,5 +38,5 @@
         <!-- End Action buttons -->
     {% endif %}
 
-{% endblock content %}
+{% endblock card_content %}
 

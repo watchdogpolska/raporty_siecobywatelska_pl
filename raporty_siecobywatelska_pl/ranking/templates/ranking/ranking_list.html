@@ -1,8 +1,8 @@
-{% extends "ranking/base.html" %}
+{% extends "base.html" %}
 
 {% load bootstrap_pagination %}
 {% load django_bootstrap_breadcrumbs %}
-
+        {% bootstrap_paginate page_obj %}
 {% block breadcrumbs %}
     {% breadcrumb "Ranking" "/" %}
 {% endblock%}
@@ -10,18 +10,31 @@
 
 {% block content %}
 
-    <h1>Rankings</h1>
+    <h1>Ranking <small>Lista rankingów</small></h1>
 
     {% if object_list %}
-        <ul>
+        <div class="row">
         {% for object in object_list %}
-            <li>
-                <a href="{{ object.get_absolute_url }}"> {{ object }}</a>
-            </li>
+            <div class="col-md-6 col-lg-4 col-xl-3">
+                <a href="{{ object.get_absolute_url }}" class="rwp-card rwp-card__header--azure">
+                    <div class="rwp-card__img">
+                        <img src="http://lorempixel.com/400/200/cats/" alt="">
+                    </div>
+                    <div class="rwp-card__head">
+                        <div class="rwp-card__header">
+                            <div class="rwp-card__title">{{ object }}</div>
+                        </div>
+                    </div>
+                    <div class="rwp-card__content">
+                        {{ object.description | truncatewords:80 }}
+                    </div>
+                </a>
+            </div>
         {% endfor %}
-        </ul>
+        </div>
         {% bootstrap_paginate page_obj %}
     {% else %}
         No result found
     {% endif %}
+
 {% endblock %}

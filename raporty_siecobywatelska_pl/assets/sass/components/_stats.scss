@@ -1,0 +1,49 @@
+$rwp-stats-spacing: 24px;
+$rwp-stats-icon-size: 64px;
+
+.rwp-stats {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.rwp-stats__content {
+  display: flex;
+  flex-direction: column;
+  font-weight: 100;
+  flex-grow: 1;
+}
+.rwp-stats__icon {
+  // position: absolute;
+  right: 0;
+  width: $rwp-stats-icon-size;
+  height: $rwp-stats-icon-size;
+  text-align: center;
+  font-size: 32px;
+  line-height: $rwp-stats-icon-size;
+  margin-left: $rwp-stats-spacing;
+}
+.rwp-stats__title {
+  font-size: 16px;
+}
+.rwp-stats__count {
+  font-size: 24px;
+  font-weight: 300;
+}
+@each $name, $color in $theme-colors {
+  .rwp-stats--#{$name} .rwp-stats__icon {
+    background: theme-color($name);
+    color: color-yiq(theme-color($name));
+  }
+}
+.rwp-stats--reversed {
+  flex-direction: row-reverse;
+  .rwp-stats__icon {
+    margin-left: 0;
+    margin-right: $rwp-stats-spacing;
+  }
+  .rwp-stats__content {
+    text-align: right;
+  }
+}

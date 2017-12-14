@@ -1,0 +1,79 @@
+{% extends "base-ranking.html" %}
+
+{% load bootstrap_pagination %}
+{% load django_bootstrap_breadcrumbs %}
+{% load crispy_forms_tags %}
+
+{% block breadcrumbs %}
+    {% breadcrumb "Ranking" "/" %}
+    {% breadcrumb request.ranking "rankings:detail" request.ranking.slug %}
+    {% breadcrumb "Institutions" "institutions:ranking-list" request.ranking.slug %}
+{% endblock%}
+
+{% block content %}
+
+    <h1>Instytucje</h1>
+
+    <div class="rwp-card rwp-card--primary">
+        <div class="rwp-card__head">
+            <div class="rwp-card__icon">
+                <i class="fa fa-bank" aria-hidden="true"></i>
+            </div>
+            <div class="rwp-card__header">
+                <div class="rwp-card__title">List of institution</div>
+            </div>
+        </div>
+        <div class="rwp-card__content">
+            <div class="row">
+                <div class="col-md-3">
+                    {% crispy filter.form %}
+                </div>
+                <div class="col-md-9">
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                                {% for heading in table.headings %}
+                                    {% if heading.column_type == "name" %}
+                                        <th>Name</th>
+                                    {% elif heading.column_type == "group" %}
+                                        <th>
+                                            <a href="{% url 'questionnaire:ranking-group-detail' request.ranking.slug heading.group.slug %}">
+                                                {{ heading.group }}
+                                            </a>
+                                        </th>
+                                    {% elif heading.column_type == "ranking" %}
+                                        <th>Total</th>
+                                    {% endif %}
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for row in table.body %}
+                                <tr>
+                                    {% for cell in row %}
+                                        {% if cell.column_type == "name" %}
+                                            <td>
+                                                <a href="{% url 'institutions:ranking-detail' request.ranking.slug cell.institution.slug %}">{{ cell.institution }}</a>
+                                            </td>
+                                        {% elif cell.column_type == "group" %}
+                                            <td>{{ cell.rate }}</td>
+                                        {% elif cell.column_type == "ranking" %}
+                                            <td>{{ cell.rate }}</td>
+                                        {% endif %}
+                                    {% endfor %}
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% bootstrap_paginate page_obj %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    {{ block.super }}
+    {{ filter.form.media }}
+{% endblock javascript %}

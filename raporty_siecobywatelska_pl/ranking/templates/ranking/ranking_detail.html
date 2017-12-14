@@ -1,53 +1,78 @@
-{% extends 'ranking/base.html' %}
+{% extends "base-ranking.html" %}
 
 {% load django_bootstrap_breadcrumbs %}
 
 {% block breadcrumbs %}
     {% breadcrumb "Ranking" "/" %}
     {% breadcrumb ranking "ranking:detail" ranking.slug %}
-{% endblock%}
+{% endblock %}
 
 {% block content %}
     <h1>{{ ranking }}</h1>
 
-    <ul class="nav nav-tabs" role="tablist">
-        <li class="nav-item" role="presentation">
-            <a href="{{ ranking.get_absolute_url }}" class="nav-link active" role="tab" >Ranking</a>
-        </li>
-        <li class="nav-item" role="presentation">
-            <a href="{% url 'institutions:ranking-list' ranking.slug %}" class="nav-link" role="tab">Instytucje</a>
-        </li>
-    </ul>
-
-    {{ object.description | safe }}
-
-    {% with object.group_set as groups %}
-        {% if groups.all %}
-            <div id="groups" class="my-3" role="tablist">
-            {% for group in groups.all %}
-                  <div class="card">
-                    <div class="card-header" role="tab" id="group_{{ group.pk }}">
-                      <h5 class="mb-0">
-                        <a data-toggle="collapse" href="#group_{{ group.pk }}_content" aria-controls="group_{{ group.pk }}_content">
-                          {{ group }}
-                        </a>
-                      </h5>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="rwp-card rwp-card--primary">
+                <div class="rwp-card__head">
+                    <div class="rwp-card__icon">
+                        <i class="fa fa-bank" aria-hidden="true"></i>
                     </div>
-
-                    <div id="group_{{ group.pk }}_content" class="collapse" role="tabpanel" aria-labelledby="group_{{ group.pk }}" data-parent="#groups">
-                      <div class="card-body">
-                          {{ group.description | safe }}
-                      </div>
+                    <div class="rwp-card__header">
+                        <div class="rwp-card__title">Ranking</div>
+                        <div class="rwp-card__subtitle">Podstawoe informacje</div>
                     </div>
-                  </div>
-            {% endfor %}
+                </div>
+                <div class="rwp-card__content">
+                    {{ object.description | safe }}
+                </div>
             </div>
+        </div>
+        <div class="col-md-4">
+            <a href="{% url "questionnaire:ranking-group-list" ranking.slug %}"
+               class="rwp-card rwp-card--primary">
+                <div class="rwp-card__content">
+                    <div class="rwp-stats rwp-stats--secondary rwp-stats--reversed">
+                        <div class="rwp-stats__content">
+                            <div class="rwp-stats__title">Gruoy</div>
+                            <div class="rwp-stats__count">{{ stats.num_group }}</div>
+                        </div>
+                        <div class="rwp-stats__icon"><i class="fa fa-balance-scale"
+                                                        aria-hidden="true"></i></div>
+                    </div>
+                </div>
+                <div class="rwp-card__footer">
+                    Pozostało <b>0</b> z twojej okolicy
+                </div>
+            </a>
+            <a href="{% url "articles:ranking-article-list" ranking.slug %}"
+               class="rwp-card rwp-card--primary">
+                <div class="rwp-card__content">
+                    <div class="rwp-stats rwp-stats--secondary rwp-stats--reversed">
+                        <div class="rwp-stats__content">
+                            <div class="rwp-stats__title">Artykuły</div>
+                            <div class="rwp-stats__count">{{ stats.num_article }}</div>
+                        </div>
+                        <div class="rwp-stats__icon"><i class="fa fa-book" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            <a href="{% url "institutions:ranking-list" ranking.slug %}"
+               class="rwp-card rwp-card--primary">
+                <div class="rwp-card__content">
+                    <div class="rwp-stats rwp-stats--secondary rwp-stats--reversed">
+                        <div class="rwp-stats__content">
+                            <div class="rwp-stats__title">Instytucje</div>
+                            <div class="rwp-stats__count">{{ stats.num_institution }}</div>
+                        </div>
+                        <div class="rwp-stats__icon"><i class="fa fa-university"
+                                                        aria-hidden="true"></i></div>
+                    </div>
+                </div>
+            </a>
 
-        {% else %}
-            <p>
-                No groups found
-            </p>
-        {% endif %}
-    {% endwith %}
+        </div>
+    </div>
+
 
 {% endblock %}

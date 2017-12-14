@@ -1,0 +1,117 @@
+{% extends "base-ranking.html" %}
+
+{% load django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+    {% breadcrumb "Ranking" "/" %}
+    {% breadcrumb request.ranking "rankings:detail" request.ranking.slug %}
+    {% breadcrumb "Institutions" "institutions:ranking-list" request.ranking.slug %}
+    {% breadcrumb object "institutions:ranking-detail" ranking.slug object.slug %}
+{% endblock%}
+
+{% block content %}
+    <a href="{% url "answers:save_answer" request.ranking.slug object.slug %}" class="btn btn-primary float-right">
+        <i class="fa fa-pencil" aria-hidden="true"></i> Edit answers
+    </a>
+
+    <h1>{{ object }}</h1>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="rwp-card rwp-card--primary">
+                <div class="rwp-card__content">
+                    <div class="rwp-stats rwp-stats--secondary rwp-stats--reversed">
+                        <div class="rwp-stats__content">
+                            <div class="rwp-stats__title">Ocena</div>
+                            <div class="rwp-stats__count">{{ institution_rate }}</div>
+                        </div>
+                        <div class="rwp-stats__icon"><i class="fa fa-balance-scale" aria-hidden="true"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <span class="float-right badge badge-secondary"></span>
+    {% for group in table_data %}
+        <div class="rwp-card">
+
+            <div class="rwp-card__head">
+                <div class="rwp-card__header">
+                    {{ group.group }}
+                </div>
+                <div class="rwp-card__addon">
+                    <span class="float-right badge badge-secondary">{{ group.rate }}</span>
+                </div>
+            </div>
+            <div class="rwp-card__content">
+                <div id="group_{{ group.group.slug }}">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div style="position: relative; padding-bottom: 100%">
+                            <div style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; background: purple">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <table class="table table-hover">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th class="col-md-6">
+                                        Question
+                                    </th>
+                                    <th class="col-md-3">
+                                        Answer
+                                    </th>
+                                    <th class="col-md-3">
+                                        Note
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for question in group.questions %}
+                                    <tr>
+                                        <td>
+                                            {{ question.question }}
+                                        </td>
+                                        {% if question.answer %}
+                                            <td>
+                                                {{ question.answer.value }}
+                                            </td>
+                                            <td>
+                                                {{ question.answer.note }}
+                                            </td>
+                                        {% else %}
+                                            <td colspan="2">
+                                                No information
+                                            </td>
+                                        {% endif %}
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+        </div>
+    {% endfor %}
+
+    {{ object.description | safe }}
+
+    {% with other_rathings=other_rankings.all %}
+        {% if other_rankings %}
+            <h2>The institution was also included in:</h2>
+            <ul>
+            {% for ranking in other_rankings %}
+                <li>
+                    <a href="{% url 'institutions:ranking-detail' ranking.slug object.slug %}">{{ ranking }}</a>
+                </li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+{% endblock %}

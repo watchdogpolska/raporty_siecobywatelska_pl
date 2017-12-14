@@ -63,9 +63,30 @@ INSTALLED_APPS += ['django_extensions', ]
 # ------------------------------------------------------------------------------
 INSTALLED_APPS += ['autofixture', ]
 
+# SITE CONFIGURATION
+# ------------------------------------------------------------------------------
+# Hosts/domain names that are valid for this site
+# See https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
+ALLOWED_HOSTS = env.list('DJANGO_ALLOWED_HOSTS', default=['*', ])
+
 # TESTING
 # ------------------------------------------------------------------------------
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django.db.backends': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        },
+    },
+}
 # Your local stuff: Below this line define 3rd party library settings
 # ------------------------------------------------------------------------------

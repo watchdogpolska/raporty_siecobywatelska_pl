@@ -1,0 +1,96 @@
+$rwd-card-head-spacing: 12px;
+.rwp-card {
+  display: block;
+  background: white;
+  box-shadow: 4px 4px 2px #ccc;
+  margin-bottom: 40px;
+  color: black;
+  transition: box-shadow .2s, background-color .2s;
+}
+a.rwp-card {
+  text-decoration: none;
+  &:hover, &:focus {
+    color: black;
+    background: darken(white, 3%);
+    box-shadow: 8px 8px 4px #ccc;
+  }
+}
+.rwp-card__img {
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+.rwp-card__head {
+  display: flex;
+  align-items: center;
+  padding: 16px 24px 0;
+  font-weight: 100;
+  > *:not(:last-child) {
+    margin-right: $rwd-card-head-spacing;
+  }
+}
+.rwp-card__header {
+  flex: 1
+}
+.rwp-card__subtitle {
+  color: rgba(0, 0, 0, 0.62);
+}
+.rwp-card__content {
+  padding: 16px 24px;
+  p:last-child {
+    margin-bottom: 0;
+  }
+}
+.rwp-card__footer {
+  border-top: 1px solid #bbb;
+  margin: 0 24px;
+  padding: 8px 0;
+}
+
+
+@each $name, $color in $theme-colors {
+  .rwp-card.rwp-card--#{$name} {
+    //margin-bottom: -16px;
+    //position: relative;
+    //top: -16px;
+    //background: theme-color($name);
+    //color: color-yiq(theme-color($name));
+    .rwp-card__subtitle {
+      //color: rgba(color-yiq(theme-color($name)), .7);
+    }
+    .rwp-card__icon {
+      background: theme-color($name);
+      color: color-yiq(theme-color($name));
+    }
+  }
+}
+
+.rwp-card__header--icon {
+  position: relative;
+  margin-left: 68px;
+  min-height: 68px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  .rwp-card__icon {
+    position: absolute;
+    left: 24px;
+    top: 16px;
+  }
+}
+.rwp-card__icon {
+  font-size: 2em;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+}
+@each $name, $color in $theme-colors {
+  .rwp-card__header--icon.rwp-card__header--#{$name} .rwp-card__icon {
+    background: theme-color($name);
+  }
+}
+.rwp-card .table {
+  margin-top: 16px;
+}

@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base-ranking.html" %}
 
 {% load crispy_forms_tags %}
 
@@ -6,14 +6,17 @@
 
 {% block breadcrumbs %}
     {% breadcrumb "Ranking" "/" %}
-    {% breadcrumb ranking "rankings:detail" ranking.slug %}
-    {% breadcrumb "Institutions" "institutions:ranking-list" ranking.slug %}
-    {% breadcrumb institution "institutions:ranking-detail" ranking.slug institution.slug %}
-    {% breadcrumb "Save answer" "answers:save_answer" ranking.slug institution.slug %}
+    {% breadcrumb request.ranking "rankings:detail" request.ranking.slug %}
+    {% breadcrumb "Institutions" "institutions:ranking-list" request.ranking.slug %}
+    {% breadcrumb institution "institutions:ranking-detail" request.ranking.slug institution.slug %}
+    {% breadcrumb "Save answer" "answers:save_answer" request.ranking.slug institution.slug %}
 {% endblock%}
 
 {% block content %}
-    <h1>Save answers</h1>
+
+    <h2>{{ institution }}</h2>
+
+    <h3>Save answers</h3>
 
     <form method="post">
 

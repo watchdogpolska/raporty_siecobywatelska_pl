@@ -1,9 +1,9 @@
-{% extends "base.html" %}
+{% extends "base-settings.html" %}
 {% load crispy_forms_tags %}
 
 {% block title %}{{ user.username }}{% endblock %}
 
-{% block content %}
+{% block card_content %}
     <h1>{{ user.username }}</h1>
 
     {% crispy form %}
