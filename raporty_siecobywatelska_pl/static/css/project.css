@@ -6856,13 +6856,10 @@ a.rwp-card {
   display: flex;
   -ms-flex-direction: column;
       flex-direction: column;
-  -ms-flex-align: center;
-      align-items: center;
+  -ms-flex-align: stretch;
+      align-items: stretch;
   -ms-flex-pack: center;
       justify-content: center; }
-
-.settings__content {
-  width: 100%; }
 
 .wrapper {
   position: relative;
