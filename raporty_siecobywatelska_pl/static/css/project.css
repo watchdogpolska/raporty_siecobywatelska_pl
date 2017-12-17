@@ -6856,14 +6856,22 @@ a.rwp-card {
   height: 100vh; }
 
 .sidebar {
+  background: black;
+  color: white;
   position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
+  width: calc(100% - 90px);
   z-index: 2;
-  width: 200px;
-  background: black;
-  color: white; }
+  transform: translateX(-100%);
+  transition: .2s; }
+  .sidebar-open .sidebar {
+    transform: translateX(0); }
+  @media (min-width: 768px) {
+    .sidebar {
+      width: 200px;
+      transform: translateX(0); } }
 
 .sidebar__header {
   height: 75px; }
@@ -6874,9 +6882,11 @@ a.rwp-card {
   padding: 8px 16px; }
 
 .main-panel {
-  position: relative;
-  float: right;
-  width: calc(100% - 200px); }
+  position: relative; }
+  @media (min-width: 768px) {
+    .main-panel {
+      float: right;
+      width: calc(100% - 200px); } }
 
 .user-info__user {
   display: -ms-flexbox;
