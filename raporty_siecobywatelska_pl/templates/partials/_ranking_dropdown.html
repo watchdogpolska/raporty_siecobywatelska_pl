@@ -1,4 +1,4 @@
-<li class="nav-item dropdown">
+<div class="dropdown">
     <a class="nav-link dropdown-toggle" href="#" id="rankingDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         {{ current_ranking }}
     </a>
@@ -6,6 +6,5 @@
         {% for ranking in rankings %}
             <a class="dropdown-item" href="{% url "rankings:detail" ranking.slug %}">{{ ranking.name }}</a>
         {% endfor %}
-{#        <a class="dropdown-item" href="#">Something else here</a>#}
     </div>
-</li>
+</div>

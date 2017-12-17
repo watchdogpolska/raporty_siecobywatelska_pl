@@ -1,4 +1,3 @@
-
 from django import template
 from django.urls import reverse
 
@@ -21,7 +20,7 @@ def sidenav_item_active(context, viewname, *args, **kwargs):
 
 
 @register.inclusion_tag("partials/_ranking_dropdown.html", takes_context=True)
-def topbar_dropdown(context):
+def ranking_dropdown(context):
     request = context['request']
     rankings = Ranking.objects.values("pk", 'name', 'slug')
     return {
