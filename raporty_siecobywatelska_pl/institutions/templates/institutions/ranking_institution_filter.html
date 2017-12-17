@@ -29,42 +29,44 @@
                     {% crispy filter.form %}
                 </div>
                 <div class="col-md-9">
-                    <table class="table">
-                        <thead class="thead-dark">
-                            <tr>
-                                {% for heading in table.headings %}
-                                    {% if heading.column_type == "name" %}
-                                        <th>Name</th>
-                                    {% elif heading.column_type == "group" %}
-                                        <th>
-                                            <a href="{% url 'questionnaire:ranking-group-detail' request.ranking.slug heading.group.slug %}">
-                                                {{ heading.group }}
-                                            </a>
-                                        </th>
-                                    {% elif heading.column_type == "ranking" %}
-                                        <th>Total</th>
-                                    {% endif %}
-                                {% endfor %}
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for row in table.body %}
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class="thead-dark">
                                 <tr>
-                                    {% for cell in row %}
-                                        {% if cell.column_type == "name" %}
-                                            <td>
-                                                <a href="{% url 'institutions:ranking-detail' request.ranking.slug cell.institution.slug %}">{{ cell.institution }}</a>
-                                            </td>
-                                        {% elif cell.column_type == "group" %}
-                                            <td>{{ cell.rate }}</td>
-                                        {% elif cell.column_type == "ranking" %}
-                                            <td>{{ cell.rate }}</td>
+                                    {% for heading in table.headings %}
+                                        {% if heading.column_type == "name" %}
+                                            <th>Name</th>
+                                        {% elif heading.column_type == "group" %}
+                                            <th>
+                                                <a href="{% url 'questionnaire:ranking-group-detail' request.ranking.slug heading.group.slug %}">
+                                                    {{ heading.group }}
+                                                </a>
+                                            </th>
+                                        {% elif heading.column_type == "ranking" %}
+                                            <th>Total</th>
                                         {% endif %}
                                     {% endfor %}
                                 </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {% for row in table.body %}
+                                    <tr>
+                                        {% for cell in row %}
+                                            {% if cell.column_type == "name" %}
+                                                <td>
+                                                    <a href="{% url 'institutions:ranking-detail' request.ranking.slug cell.institution.slug %}">{{ cell.institution }}</a>
+                                                </td>
+                                            {% elif cell.column_type == "group" %}
+                                                <td>{{ cell.rate }}</td>
+                                            {% elif cell.column_type == "ranking" %}
+                                                <td>{{ cell.rate }}</td>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
                     {% bootstrap_paginate page_obj %}
 
                 </div>
