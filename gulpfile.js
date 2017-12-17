@@ -3,6 +3,7 @@
 		//Setup//
 ////////////////////////////////
 
+var path = require('path');
 // Plugins
 var gulp = require('gulp'),
       pjson = require('./package.json'),
@@ -10,6 +11,7 @@ var gulp = require('gulp'),
       sass = require('gulp-sass'),
       autoprefixer = require('gulp-autoprefixer'),
       cssnano = require('gulp-cssnano'),
+      concat = require('gulp-concat'),
       rename = require('gulp-rename'),
       del = require('del'),
       plumber = require('gulp-plumber'),
@@ -33,7 +35,10 @@ var pathsConfig = function (appName) {
     sass: this.app + '/assets/sass',
     fonts: this.app + '/static/fonts',
     images: this.app + '/static/images',
-    js: this.app + '/static/js',
+    js: {
+      src: this.app + '/assets/js/**/*.js',
+      dest: this.app + '/static/js/project.js'
+    }
   }
 };
 
@@ -60,11 +65,13 @@ gulp.task('styles', function() {
 
 // Javascript minification
 gulp.task('scripts', function() {
-  return gulp.src(paths.js + '/project.js')
+  return gulp.src(paths.js.src)
     .pipe(plumber()) // Checks for errors
+    .pipe(concat(path.basename(paths.js.dest)))
+    .pipe(gulp.dest(path.dirname(paths.js.dest)))
     .pipe(uglify()) // Minifies the js
     .pipe(rename({ suffix: '.min' }))
-    .pipe(gulp.dest(paths.js));
+    .pipe(gulp.dest(path.dirname(paths.js.dest)));
 });
 
 // Image compression
@@ -95,7 +102,7 @@ gulp.task('browserSync', function() {
 gulp.task('watch', function() {
 
   gulp.watch(paths.sass + '/**/*.scss', ['styles']);
-  gulp.watch(paths.js + '/*.js', ['scripts']).on("change", reload);
+  gulp.watch(paths.js.src, ['scripts']).on("change", reload);
   gulp.watch(paths.images + '/*', ['imgCompression']);
   gulp.watch(paths.templates + '/**/*.html').on("change", reload);
 
