@@ -30,93 +30,43 @@
 
 </head>
 
-<body>
+<body class="settings">
 
-<div class="m-b-1">
-    <nav class="navbar navbar-expand-md navbar-light bg-light">
-        <div class="container">
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <a class="navbar-brand" href="/">Raporty</a>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'about' %}">About</a>
-                    </li>
-                    {% if request.user.is_authenticated %}
-                        <li class="nav-item">
-                            {# URL provided by django-allauth/account/urls.py #}
-                            <a class="nav-link"
-                               href="{% url 'users:detail' request.user.username %}">{% trans "My Profile" %}</a>
-                        </li>
-                        <li class="nav-item">
-                            {# URL provided by django-allauth/account/urls.py #}
-                            <a class="nav-link"
-                               href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a>
-                        </li>
-                    {% else %}
-                        <li class="nav-item">
-                            {# URL provided by django-allauth/account/urls.py #}
-                            <a id="sign-up-link" class="nav-link"
-                               href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a>
-                        </li>
-                        <li class="nav-item">
-                            {# URL provided by django-allauth/account/urls.py #}
-                            <a id="log-in-link" class="nav-link"
-                               href="{% url 'account_login' %}">{% trans "Sign In" %}</a>
-                        </li>
-                    {% endif %}
-                </ul>
-            </div>
-        </nav>
-    </div>
-</div>
-
-<div class="container">
     {% if messages %}
-        {% for message in messages %}
-            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
-        {% endfor %}
+        <div class="settings__messages">
+            {% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }}</div>
+            {% endfor %}
+        </div>
     {% endif %}
-
-    {% block breadcrumbs %}
-
-    {% endblock %}
-
-    {% render_breadcrumbs %}
-
-    {% block content %}
-        <div class="row">
-            <div class="col-md-6 mx-auto">
-                <div class="rwp-card rwp-card--primary">
-                    <div class="rwp-card__head">
-                        <div class="rwp-card__icon">
-                            {% block card_icon %}
-                                <i class="fa fa-gear"></i>
-                            {% endblock %}
-                        </div>
-                        <div class="rwp-card__header">
-                            <div class="rwp-card__title">
-                                {% block card_title %}Settings{% endblock %}
+    <div class="settings__content">
+        <div class="container">
+            {% block content %}
+                <div class="row">
+                    <div class="col-md-{% block setting-width %}6{% endblock %} mx-auto">
+                        <div class="rwp-card rwp-card--primary">
+                            <div class="rwp-card__head">
+                                <div class="rwp-card__icon">
+                                    {% block card_icon %}
+                                        <i class="fa fa-gear"></i>
+                                    {% endblock %}
+                                </div>
+                                <div class="rwp-card__header">
+                                    <div class="rwp-card__title">
+                                        {% block card_title %}Settings{% endblock %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="rwp-card__content">
+                                {% block card_content %}
+                                {% endblock %}
                             </div>
                         </div>
                     </div>
-                    <div class="rwp-card__content">
-                        {% block card_content %}
-                        {% endblock %}
-                    </div>
                 </div>
-            </div>
+            {% endblock content %}
         </div>
-    {% endblock content %}
-</div>
+    </div>
 
 
 {% block modal %}{% endblock modal %}

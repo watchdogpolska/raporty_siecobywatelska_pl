@@ -6850,6 +6850,20 @@ a.rwp-card {
     color: white;
     text-decoration: none; }
 
+.settings {
+  min-height: 100vh;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+      flex-direction: column;
+  -ms-flex-align: center;
+      align-items: center;
+  -ms-flex-pack: center;
+      justify-content: center; }
+
+.settings__content {
+  width: 100%; }
+
 .wrapper {
   position: relative;
   top: 0;

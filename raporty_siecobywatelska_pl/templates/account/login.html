@@ -4,45 +4,61 @@
 {% load account socialaccount %}
 {% load crispy_forms_tags %}
 
-{% block head_title %}{% trans "Sign In" %}{% endblock %}
+{% block card_title %}{% trans "Sign In" %}{% endblock %}
 
-{% block inner %}
+{% block card_content %}
+    <p>{% blocktrans %}If you have not created an account yet, then please
+    <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
 
-<h1>{% trans "Sign In" %}</h1>
 
-{% get_providers as socialaccount_providers %}
+    <form class="login" method="POST" action="{% url 'account_login' %}">
+        {% csrf_token %}
+        {{ form|crispy }}
+        {% if redirect_field_value %}
+          <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+        {% endif %}
+        <button class="btn btn-primary btn-block mb-5" type="submit">{% trans "Sign In" %}</button>
 
-{% if socialaccount_providers %}
-<p>{% blocktrans with site.name as site_name %}Please sign in with one
-of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
-for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
+    </form>
 
-<div class="socialaccount_ballot">
+    {% get_providers as socialaccount_providers %}
 
-  <ul class="socialaccount_providers">
-    {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-  </ul>
+    <div class="socialaccount_ballot">
+        {% with process="login" %}
+            {% for provider in socialaccount_providers %}
+                {% if provider.id == "openid" %}
+                    {% for brand in provider.get_brands %}
 
-  <div class="login-or">{% trans 'or' %}</div>
+                        <a title="{{ brand.name }}"
+                           class="btn btn-primary btn-secondary {{ provider.id }} {{ brand.id }}"
+                           href="{% provider_login_url provider.id openid=brand.openid_url process=process %}"
+                        >Sign in with {{ brand.name }}</a>
 
-</div>
+                    {% endfor %}
+                {% endif %}
 
-{% include "socialaccount/snippets/login_extra.html" %}
+                <a title="{{ provider.name }}" class="btn btn-secondary btn-block {{ provider.id }}"
+                   href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}">
+                    {% if provider.id == 'google' %}
+                        <i class="fa fa-google" aria-hidden="true"></i>
+                    {% elif provider.id == 'github' %}
+                        <i class="fa fa-github" aria-hidden="true"></i>
+                    {% elif provider.id == 'facebook' %}
+                        <i class="fa fa-facebook" aria-hidden="true"></i>
+                    {% endif %}
+                    Sign in with {{ provider.name }}
+                </a>
 
-{% else %}
-<p>{% blocktrans %}If you have not created an account yet, then please
-<a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
-{% endif %}
+            {% endfor %}
+        {% endwith %}
 
-<form class="login" method="POST" action="{% url 'account_login' %}">
-  {% csrf_token %}
-  {{ form|crispy }}
-  {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-  {% endif %}
-  <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
-  <button class="primaryAction btn btn-primary" type="submit">{% trans "Sign In" %}</button>
-</form>
+    </div>
+    <div class="mt-3">
+        <a href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+    </div>
+{% endblock %}
+{% block javascript %}
+    {{ block.super }}
+    {% include "socialaccount/snippets/login_extra.html" %}
 
 {% endblock %}
-
