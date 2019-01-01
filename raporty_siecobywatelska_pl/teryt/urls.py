@@ -8,10 +8,19 @@ from teryt_tree.dal_ext.views import (CommunityAutocomplete,
                                       VoivodeshipAutocomplete)
 
 urlpatterns = [
-    url(_(r'^voivodeship-autocomplete/$'), VoivodeshipAutocomplete.as_view(),
-        name='voivodeship-autocomplete', ),
-    url(_(r'^county-autocomplete/$'), CountyAutocomplete.as_view(),
-        name='county-autocomplete', ),
-    url(_(r'^community-autocomplete/$'), CommunityAutocomplete.as_view(),
-        name='community-autocomplete', ),
+    url(
+        _(r'^voivodeship-autocomplete/$'),
+        VoivodeshipAutocomplete.as_view(),
+        name='voivodeship-autocomplete'
+    ),
+    url(
+        _(r'^county-autocomplete/$'),
+        CountyAutocomplete.as_view(),
+        name='county-autocomplete'
+    ),
+    url(
+        _(r'^community-autocomplete/$'),
+        CommunityAutocomplete.as_view(),
+        name='community-autocomplete'
+    ),
 ]

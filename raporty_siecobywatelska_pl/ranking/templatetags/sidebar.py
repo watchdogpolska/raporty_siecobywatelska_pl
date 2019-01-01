@@ -5,6 +5,7 @@ from raporty_siecobywatelska_pl.ranking.models import Ranking
 
 register = template.Library()
 
+
 @register.simple_tag(takes_context=True)
 def sidenav_item_active(context, viewname, *args, **kwargs):
     url = reverse(viewname=viewname, args=args, kwargs=kwargs)

@@ -30,44 +30,46 @@
 
 </head>
 
-<body class="settings">
+<body>
 
-    {% if messages %}
-        <div class="settings__messages">
-            {% for message in messages %}
-                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }}</div>
-            {% endfor %}
-        </div>
-    {% endif %}
-    <div class="settings__content">
-        <div class="container">
-            {% block content %}
-                <div class="row">
-                    <div class="col-md-{% block setting-width %}6{% endblock %} mx-auto">
-                        <div class="rwp-card rwp-card--primary">
-                            <div class="rwp-card__head">
-                                <div class="rwp-card__icon">
-                                    {% block card_icon %}
-                                        <i class="fa fa-gear"></i>
-                                    {% endblock %}
-                                </div>
-                                <div class="rwp-card__header">
-                                    <div class="rwp-card__title">
-                                        {% block card_title %}Settings{% endblock %}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="rwp-card__content">
-                                {% block card_content %}
-                                {% endblock %}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            {% endblock content %}
-        </div>
+{% include "partials/_navbar.html" %}
+    <div class="settings">
+      {% if messages %}
+          <div class="settings__messages">
+              <div class="container">
+                  {% for message in messages %}
+                      <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }}</div>
+                  {% endfor %}
+              </div>
+          </div>
+      {% endif %}
+      <div class="settings__content">
+          <div class="container">
+              <div class="row">
+                  <div class="col-md-{% block setting-width %}6{% endblock %} mx-auto">
+                      <div class="rwp-card rwp-card--primary">
+                          <div class="rwp-card__head">
+                              <div class="rwp-card__icon">
+                                  {% block head_icon %}
+                                      <i class="fa fa-gear"></i>
+                                  {% endblock %}
+                              </div>
+                              <div class="rwp-card__header">
+                                  <div class="rwp-card__title">
+                                      {% block head_title %}Settings{% endblock %}
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="rwp-card__content">
+                              {% block content %}
+                              {% endblock %}
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
     </div>
-
 
 {% block modal %}{% endblock modal %}
 

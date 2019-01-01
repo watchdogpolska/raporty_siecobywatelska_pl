@@ -36,7 +36,11 @@ var pathsConfig = function (appName) {
     fonts: this.app + '/static/fonts',
     images: this.app + '/static/images',
     js: {
-      src: this.app + '/assets/js/**/*.js',
+      src: [
+          '/node_modules/d3/build/d3.js',
+          '/node_modules/nvd3/build/nv.d3.js',
+          this.app + '/assets/js/**/*.js'
+      ],
       dest: this.app + '/static/js/project.js'
     }
   }

@@ -35,7 +35,7 @@
                                 <tr>
                                     {% for heading in table.headings %}
                                         {% if heading.column_type == "name" %}
-                                            <th>Name</th>
+                                            <th rowspan="2">Name</th>
                                         {% elif heading.column_type == "group" %}
                                             <th>
                                                 <a href="{% url 'questionnaire:ranking-group-detail' request.ranking.slug heading.group.slug %}">
@@ -43,7 +43,7 @@
                                                 </a>
                                             </th>
                                         {% elif heading.column_type == "ranking" %}
-                                            <th>Total</th>
+                                            <th rowspan="2">Total</th>
                                         {% endif %}
                                     {% endfor %}
                                 </tr>

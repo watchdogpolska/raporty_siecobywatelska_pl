@@ -14,6 +14,11 @@ urlpatterns = [
         name='redirect'
     ),
     url(
+        regex=r'^welcome/$',
+        view=views.WelcomeSettingFormView.as_view(),
+        name='welcome'
+    ),
+    url(
         regex=r'^(?P<username>[\w.@+-]+)/$',
         view=views.UserDetailView.as_view(),
         name='detail'

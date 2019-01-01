@@ -1,4 +1,6 @@
+from allauth.account.forms import LoginForm
 from django import forms
+from django.urls import reverse
 
 from raporty_siecobywatelska_pl.users import models
 from crispy_forms.helper import FormHelper
@@ -17,3 +19,7 @@ class UserForm(forms.ModelForm):
         fields = [
             'name'
          ]
+
+
+class WelcomeSettingForm(forms.Form):
+    city = forms.CharField()

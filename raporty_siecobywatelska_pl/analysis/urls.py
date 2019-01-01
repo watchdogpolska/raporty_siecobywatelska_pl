@@ -13,9 +13,13 @@ urlpatterns = [
         name="analysis-list"
     ),
     url(
-        _(r'^(?P<ranking_slug>[\w-]+)/analysis/institution$'),
+        _(r'^(?P<ranking_slug>[\w-]+)/analysis/compare$'),
         views.RankingInstitutionCompareView.as_view(),
         name="analysis-institution"
     ),
-
+    url(
+        _(r'^(?P<ranking_slug>[\w-]+)/analysis/grouping$'),
+        views.RankingInstitutionGroupingView.as_view(),
+        name="analysis-institution"
+    ),
 ]

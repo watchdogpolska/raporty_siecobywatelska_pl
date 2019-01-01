@@ -3,15 +3,15 @@
 
 {% block title %}User: {{ object.username }}{% endblock %}
 
-{% block card_icon %}
+{% block head_icon %}
     <i class="fa fa-user" aria-hidden="true"></i>
 {% endblock %}
 
-{% block card_title %}
+{% block head_title %}
     Users
 {% endblock %}
 
-{% block card_content %}
+{% block content %}
 
 
     <h1>{{ object.username }}</h1>
@@ -38,5 +38,5 @@
         <!-- End Action buttons -->
     {% endif %}
 
-{% endblock card_content %}
+{% endblock %}
 

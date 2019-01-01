@@ -36,6 +36,7 @@ class RankingDetail(DetailView):
         return Ranking.objects.filter(pk=self.request.ranking.pk)\
             .annotate(num_institution=Count('institutions'))\
             .annotate(num_article=Count('article'))\
-            .annotate(num_group=Count('group')).first()
+            .annotate(num_group=Count('group'))\
+            .first()
 
 

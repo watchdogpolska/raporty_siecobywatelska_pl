@@ -11,6 +11,7 @@ class User(AbstractUser):
     # First Name and Last Name do not cover name patterns
     # around the globe.
     name = models.CharField(_('Name of User'), blank=True, max_length=255)
+    is_initially_introduced = models.BooleanField(_('It is initially introduced'), blank=False, default=False)
 
     def __str__(self):
         return self.username

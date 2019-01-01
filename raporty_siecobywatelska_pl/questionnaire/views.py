@@ -2,7 +2,6 @@ from django.utils.functional import cached_property
 from django.views.generic import DetailView, ListView
 
 from raporty_siecobywatelska_pl.questionnaire.models import Group
-from raporty_siecobywatelska_pl.ranking.models import Ranking
 from raporty_siecobywatelska_pl.rates.models import InstitutionGroupRate
 
 

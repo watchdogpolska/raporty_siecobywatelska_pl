@@ -3,10 +3,11 @@
 {% load i18n %}
 {% load account socialaccount %}
 {% load crispy_forms_tags %}
+{% load icons %}
 
-{% block card_title %}{% trans "Sign In" %}{% endblock %}
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
 
-{% block card_content %}
+{% block content %}
     <p>{% blocktrans %}If you have not created an account yet, then please
     <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
 
@@ -39,13 +40,7 @@
 
                 <a title="{{ provider.name }}" class="btn btn-secondary btn-block {{ provider.id }}"
                    href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}">
-                    {% if provider.id == 'google' %}
-                        <i class="fa fa-google" aria-hidden="true"></i>
-                    {% elif provider.id == 'github' %}
-                        <i class="fa fa-github" aria-hidden="true"></i>
-                    {% elif provider.id == 'facebook' %}
-                        <i class="fa fa-facebook" aria-hidden="true"></i>
-                    {% endif %}
+                    {% provider_icon provider.id %}
                     Sign in with {{ provider.name }}
                 </a>
 

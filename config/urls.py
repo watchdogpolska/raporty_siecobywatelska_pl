@@ -5,10 +5,13 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from django.views import defaults as default_views
 
+from raporty_siecobywatelska_pl.ranking.views import RankingList
+
 urlpatterns = [
     # url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name='home'),
     url(r'^tinymce/', include('tinymce.urls')),
     url(r'^about/$', TemplateView.as_view(template_name='pages/about.html'), name='about'),
+    url(r'^$', RankingList.as_view(), name="home"),
 
     # Admin
     url(settings.ADMIN_URL, admin.site.urls),

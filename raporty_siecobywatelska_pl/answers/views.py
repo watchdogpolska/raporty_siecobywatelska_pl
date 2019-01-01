@@ -1,14 +1,11 @@
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, Submit
 from django import forms
-from django.db.models import Model
-from django.forms import modelformset_factory, modelform_factory, formset_factory, \
-    inlineformset_factory, BaseFormSet, ModelForm, BaseInlineFormSet
+from django.forms import BaseInlineFormSet
 from django.utils.functional import cached_property
 from django.views.generic import TemplateView
 
 from raporty_siecobywatelska_pl.answers.models import Answer
-
 from raporty_siecobywatelska_pl.institutions.models import Institution
 from raporty_siecobywatelska_pl.questionnaire.models import Question
 from raporty_siecobywatelska_pl.ranking.models import Ranking
