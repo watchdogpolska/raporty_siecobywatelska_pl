@@ -1,0 +1,78 @@
+version: '3.4'
+
+x-python: &python
+  build:
+    context: .
+    dockerfile: ./compose/local/python/Dockerfile
+  volumes:
+    - .:/app
+  env_file: .env
+
+services:
+  web:
+    <<: *python
+    image: raporty_local_python
+    command: bash -c "sleep 5 && python3 manage.py runserver 0.0.0.0:8000"
+    depends_on:
+      - db
+      - redis
+    ports:
+      - "8000:8000"
+
+  db:
+    image: postgres:11-alpine
+    environment:
+      POSTGRES_DB: eca
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:4
+    ports:
+     - '6379:6379'
+
+  celery_flower:
+    <<: *python
+    image: raporty_local_celery_flower
+    command: celery flower --app=raporty_siecobywatelska_pl.taskapp --loglevel=info --port=5555 --address=0.0.0.0
+    depends_on:
+      - db
+      - redis
+    ports:
+      - "5555:5555"
+
+  celery_worker:
+    <<: *python
+    build:
+      context: .
+      dockerfile: ./compose/local/python/Dockerfile
+    image: raporty_local_celery_worker
+    command: celery worker --app=raporty_siecobywatelska_pl.taskapp --loglevel=info
+
+  celery_beat:
+    <<: *python
+    build:
+      context: .
+      dockerfile: ./compose/local/python/Dockerfile
+    image: raporty_local_celery_beat
+    command: celery beat --app=raporty_siecobywatelska_pl.taskapp --loglevel=info
+
+  mailhog:
+    image: mailhog/mailhog:v1.0.0
+    ports:
+      - "8025:8025"
+
+  gulp:
+    image: node:10.15.0
+    working_dir: /app
+    command: bash -c "npm install && npx gulp"
+    depends_on:
+      - web
+    ports:
+      - "9000:9000"
+      - "3001:3001"
+    volumes:
+      - .:/app
+
