@@ -7,10 +7,10 @@ from .models import Article
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
     list_display = (
-        'ranking',
+        'exploration',
         'name',
         'short_description',
         'description',
     )
-    list_filter = ('ranking',)
+    list_filter = ('exploration',)
     search_fields = ('name',)

@@ -9,22 +9,22 @@ from raporty_siecobywatelska_pl.institutions.filters import InstitutionFilter
 from raporty_siecobywatelska_pl.institutions.models import Institution
 from raporty_siecobywatelska_pl.institutions.tables import InstitutionFilterTableView
 from raporty_siecobywatelska_pl.questionnaire.models import Group, Question
-from raporty_siecobywatelska_pl.ranking.models import Ranking
-from raporty_siecobywatelska_pl.rates.models import InstitutionGroupRate, InstitutionRankingRate
+from raporty_siecobywatelska_pl.exploration.models import Exploration
+from raporty_siecobywatelska_pl.rates.models import InstitutionGroupRate, InstitutionExplorationRate
 from raporty_siecobywatelska_pl.views import ExprAutocompleteMixin
 
 
-class RankingInstitutionDetailView(DetailView):
+class ExplorationInstitutionDetailView(DetailView):
     model = Institution
-    template_name = "institutions/ranking_institution_detail.html"
+    template_name = "institutions/exploration_institution_detail.html"
 
     def get_queryset(self):
-        return super(RankingInstitutionDetailView, self)\
-            .get_queryset().filter(rankings=self.request.ranking)
+        return super(ExplorationInstitutionDetailView, self)\
+            .get_queryset().filter(explorations=self.request.exploration)
 
     def get_context_data(self, **kwargs):
-        return super(RankingInstitutionDetailView, self).get_context_data(
-            other_rankings=self.other_related_ranking,
+        return super(ExplorationInstitutionDetailView, self).get_context_data(
+            other_explorations=self.other_related_exploration,
             table_data=self.get_table_data(),
             institution_rate=self.institution_rate,
             **kwargs
@@ -46,8 +46,8 @@ class RankingInstitutionDetailView(DetailView):
 
     @cached_property
     def institution_rate(self):
-        return InstitutionRankingRate.objects.filter(
-            ranking=self.request.ranking,
+        return InstitutionExplorationRate.objects.filter(
+            exploration=self.request.exploration,
             institution=self.object
         ).first()
 
@@ -58,7 +58,7 @@ class RankingInstitutionDetailView(DetailView):
             Prefetch('answer_set', queryset=qs_answer, to_attr='answers')
         )
 
-        return Group.objects.filter(ranking=self.request.ranking)\
+        return Group.objects.filter(exploration=self.request.exploration)\
             .prefetch_related(
                 Prefetch(
                     'question_set',
@@ -73,34 +73,36 @@ class RankingInstitutionDetailView(DetailView):
         )
 
     @cached_property
-    def other_related_ranking(self):
-        return Ranking.objects.exclude(pk=self.request.ranking.pk).all()
+    def other_related_exploration(self):
+        return Exploration.objects.exclude(pk=self.request.exploration.pk).all()
 
 
-class RankingInstitutionListView(FilterView):
+class ExplorationInstitutionListView(FilterView):
     model = Institution
     filterset_class = InstitutionFilter
     paginate_by = 25
-    template_name = "institutions/ranking_institution_filter.html"
+    template_name = "institutions/exploration_institution_filter.html"
 
     def get_queryset(self):
-        return super(RankingInstitutionListView, self)\
-            .get_queryset().filter(rankings__slug=self.request.ranking.slug)\
+        return super(ExplorationInstitutionListView, self)\
+            .get_queryset().filter(explorations__slug=self.request.exploration.slug)\
 
 
     def get_context_data(self, **kwargs):
         # import ipdb; ipdb.set_trace()
-        return super(RankingInstitutionListView, self).get_context_data(
+        return super(ExplorationInstitutionListView, self).get_context_data(
             table=self.get_table_view().get_table(),
             **kwargs
         )
 
     def get_table_view(self):
-        return InstitutionFilterTableView(self.request.ranking, self.object_list)
+        return InstitutionFilterTableView(self.request.exploration, self.object_list)
 
 
-class InstitutionAutocomplete(ExprAutocompleteMixin,
-                          autocomplete.Select2QuerySetView):
+class InstitutionAutocomplete(
+    ExprAutocompleteMixin,
+    autocomplete.Select2QuerySetView
+):
     search_expr = [
         'name__icontains',
     ]

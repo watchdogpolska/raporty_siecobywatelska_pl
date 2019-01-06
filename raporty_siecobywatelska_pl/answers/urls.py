@@ -7,7 +7,7 @@ from . import views
 
 urlpatterns = [
     url(
-        _(r'^(?P<ranking_slug>[\w-]+)/institution/(?P<institution_slug>[\w-]+)/response/$'),
+        _(r'^(?P<exploration_slug>[\w-]+)/institution/(?P<institution_slug>[\w-]+)/response/$'),
         views.AnswerSaveView.as_view(),
         name="save_answer"
     ),

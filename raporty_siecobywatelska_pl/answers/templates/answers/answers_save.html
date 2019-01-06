@@ -1,15 +1,15 @@
-{% extends "base-ranking.html" %}
+{% extends "base-exploration.html" %}
 
 {% load crispy_forms_tags %}
 
 {% load django_bootstrap_breadcrumbs %}
 
 {% block breadcrumbs %}
-    {% breadcrumb "Ranking" "/" %}
-    {% breadcrumb request.ranking "rankings:detail" request.ranking.slug %}
-    {% breadcrumb "Institutions" "institutions:ranking-list" request.ranking.slug %}
-    {% breadcrumb institution "institutions:ranking-detail" request.ranking.slug institution.slug %}
-    {% breadcrumb "Save answer" "answers:save_answer" request.ranking.slug institution.slug %}
+    {% breadcrumb "Explorations" "/" %}
+    {% breadcrumb request.exploration "exploration:detail" request.exploration.slug %}
+    {% breadcrumb "Institutions" "institutions:exploration-list" request.exploration.slug %}
+    {% breadcrumb institution "institutions:exploration-detail" request.exploration.slug institution.slug %}
+    {% breadcrumb "Save answer" "answers:save_answer" request.exploration.slug institution.slug %}
 {% endblock%}
 
 {% block content %}

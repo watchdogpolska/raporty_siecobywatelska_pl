@@ -2,11 +2,11 @@ from raporty_siecobywatelska_pl.institutions.models import Institution
 from raporty_siecobywatelska_pl.questionnaire.models import Group
 from django.db.models import Sum, Count
 
-from raporty_siecobywatelska_pl.rates.models import InstitutionGroupRate, InstitutionRankingRate
+from raporty_siecobywatelska_pl.rates.models import InstitutionGroupRate, InstitutionExplorationRate
 
 
-def refresh_groups_institution_rates(institution, ranking):
-    groups = Group.objects.filter(ranking=ranking) \
+def refresh_groups_institution_rates(institution, exploration):
+    groups = Group.objects.filter(exploration=exploration) \
         .filter(question__answer__institution_id=institution) \
         .annotate(collected_points=Sum('question__answer__value')) \
         .annotate(total_points=Count('question__answer'))
@@ -18,16 +18,16 @@ def refresh_groups_institution_rates(institution, ranking):
         )
 
 
-def refresh_ranking_institution_rates(institutions, ranking):
+def refresh_exploration_institution_rates(institutions, exploration):
     institution_results = Institution.objects.filter(pk__in=institutions) \
         .annotate(collected_points=Sum('answer__value')) \
         .annotate(total_points=Count('answer'))
     for institution in institution_results:
         _save_or_update_rate(
-            InstitutionRankingRate,
+            InstitutionExplorationRate,
             institution,
             institution=institution,
-            ranking=ranking
+            exploration=exploration
         )
 
 

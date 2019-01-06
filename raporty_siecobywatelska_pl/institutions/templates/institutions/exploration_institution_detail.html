@@ -1,16 +1,16 @@
-{% extends "base-ranking.html" %}
+{% extends "base-exploration.html" %}
 
 {% load django_bootstrap_breadcrumbs %}
 
 {% block breadcrumbs %}
-    {% breadcrumb "Ranking" "/" %}
-    {% breadcrumb request.ranking "rankings:detail" request.ranking.slug %}
-    {% breadcrumb "Institutions" "institutions:ranking-list" request.ranking.slug %}
-    {% breadcrumb object "institutions:ranking-detail" ranking.slug object.slug %}
+    {% breadcrumb "Explorations" "/" %}
+    {% breadcrumb request.exploration "exploration:detail" request.exploration.slug %}
+    {% breadcrumb "Institutions" "institutions:exploration-list" request.exploration.slug %}
+    {% breadcrumb object "institutions:exploration-detail" exploration.slug object.slug %}
 {% endblock%}
 
 {% block content %}
-    <a href="{% url "answers:save_answer" request.ranking.slug object.slug %}" class="btn btn-primary float-right">
+    <a href="{% url "answers:save_answer" request.exploration.slug object.slug %}" class="btn btn-primary float-right">
         <i class="fa fa-pencil" aria-hidden="true"></i> Edit answers
     </a>
 
@@ -102,13 +102,13 @@
 
     {{ object.description | safe }}
 
-    {% with other_rathings=other_rankings.all %}
-        {% if other_rankings %}
+    {% with other_rathings=other_explorations.all %}
+        {% if other_explorations %}
             <h2>The institution was also included in:</h2>
             <ul>
-            {% for ranking in other_rankings %}
+            {% for exploration in other_explorations %}
                 <li>
-                    <a href="{% url 'institutions:ranking-detail' ranking.slug object.slug %}">{{ ranking }}</a>
+                    <a href="{% url 'institutions:exploration-detail' exploration.slug object.slug %}">{{ exploration }}</a>
                 </li>
             {% endfor %}
             </ul>

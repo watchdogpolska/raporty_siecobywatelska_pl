@@ -8,18 +8,18 @@ from . import views
 
 urlpatterns = [
     url(
-        _(r'^(?P<ranking_slug>[\w-]+)/analysis$'),
+        _(r'^(?P<exploration_slug>[\w-]+)/analysis$'),
         views.AnalysisList.as_view(),
         name="analysis-list"
     ),
     url(
-        _(r'^(?P<ranking_slug>[\w-]+)/analysis/compare$'),
-        views.RankingInstitutionCompareView.as_view(),
+        _(r'^(?P<exploration_slug>[\w-]+)/analysis/compare$'),
+        views.ExplorationInstitutionCompareView.as_view(),
         name="analysis-institution"
     ),
     url(
-        _(r'^(?P<ranking_slug>[\w-]+)/analysis/grouping$'),
-        views.RankingInstitutionGroupingView.as_view(),
+        _(r'^(?P<exploration_slug>[\w-]+)/analysis/grouping$'),
+        views.ExplorationInstitutionGroupingView.as_view(),
         name="analysis-institution"
     ),
 ]

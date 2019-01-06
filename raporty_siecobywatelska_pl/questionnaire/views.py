@@ -5,16 +5,16 @@ from raporty_siecobywatelska_pl.questionnaire.models import Group
 from raporty_siecobywatelska_pl.rates.models import InstitutionGroupRate
 
 
-class RankingGroupDetailView(DetailView):
+class ExplorationGroupDetailView(DetailView):
     model = Group
-    template_name = "questionnaire/ranking_group_detail.html"
+    template_name = "questionnaire/exploration_group_detail.html"
 
     def get_queryset(self):
-        return super().get_queryset().filter(ranking=self.request.ranking)
+        return super().get_queryset().filter(exploration=self.request.exploration)
 
     def get_context_data(self, **kwargs):
         return super().get_context_data(
-            ranking=self.request.ranking,
+            exploration=self.request.exploration,
             institution_group_rate=self.institution_group_rate,
             **kwargs)
 
@@ -27,10 +27,11 @@ class RankingGroupDetailView(DetailView):
             .all()[:10]
 
 
-class RankingGroupListView(ListView):
+class ExplorationGroupListView(ListView):
     model = Group
-    template_name = "questionnaire/ranking_group_list.html"
+    template_name = "questionnaire/exploration_group_list.html"
     paginate_by = 12
 
     def get_queryset(self):
-        return super().get_queryset().filter(ranking=self.request.ranking)
+        return super().get_queryset()\
+            .filter(exploration=self.request.exploration)

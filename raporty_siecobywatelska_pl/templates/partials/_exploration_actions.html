@@ -3,35 +3,35 @@
         <div class="container-fluid">
             <ul class="actions" role="tablist">
                 <li class="actions__item" role="presentation">
-                    <a href="{{ ranking.get_absolute_url }}"
-                       class="actions__link{% if selected == "ranking" %} actions__link--active{% endif %}"
+                    <a href="{{ exploration.get_absolute_url }}"
+                       class="actions__link{% if selected == "exploration" %} actions__link--active{% endif %}"
                        role="tab">
-                        Ranking
+                        Exploration
                     </a>
                 </li>
                 <li class="actions__item" role="presentation">
-                    <a href="{% url 'questionnaire:ranking-group-list' request.ranking.slug %}"
+                    <a href="{% url 'questionnaire:exploration-group-list' request.exploration.slug %}"
                        class="actions__link {% if selected == "groups" %} actions__link--active{% endif %}"
                        role="tab">
                         Groups
                     </a>
                 </li>
                 <li class="actions__item" role="presentation">
-                    <a href="{% url 'institutions:ranking-list' request.ranking.slug %}"
+                    <a href="{% url 'institutions:exploration-list' request.exploration.slug %}"
                        class="actions__link {% if selected == "institutions" %} actions__link--active{% endif %}"
                        role="tab">
                         Institutions
                     </a>
                 </li>
                 <li class="actions__item" role="presentation">
-                    <a href="{% url 'analysis:analysis-list' request.ranking.slug %}"
+                    <a href="{% url 'analysis:analysis-list' request.exploration.slug %}"
                        class="actions__link {% if selected == "analysis" %} actions__link--active{% endif %}"
                        role="tab">
                         Analysis
                     </a>
                 </li>
                 <li class="actions__item" role="presentation">
-                    <a href="{% url 'articles:ranking-article-list' request.ranking.slug %}"
+                    <a href="{% url 'articles:exploration-article-list' request.exploration.slug %}"
                        class="actions__link {% if selected == "articles" %} actions__link--active{% endif %}"
                        role="tab">
                         Articles

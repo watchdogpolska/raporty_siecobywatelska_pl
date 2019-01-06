@@ -1,13 +1,13 @@
-{% extends "base-ranking.html" %}
+{% extends "base-exploration.html" %}
 
 {% load bootstrap_pagination %}
 {% load django_bootstrap_breadcrumbs %}
 {% load crispy_forms_tags %}
 
 {% block breadcrumbs %}
-    {% breadcrumb "Ranking" "/" %}
-    {% breadcrumb request.ranking "rankings:detail" request.ranking.slug %}
-    {% breadcrumb "Institutions" "institutions:ranking-list" request.ranking.slug %}
+    {% breadcrumb "Exploration" "/" %}
+    {% breadcrumb request.exploration "exploration:detail" request.exploration.slug %}
+    {% breadcrumb "Institutions" "institutions:exploration-list" request.exploration.slug %}
 {% endblock%}
 
 {% block content %}
@@ -24,7 +24,7 @@
                                 {% if cell.row_type == "total" %}
                                     Total
                                 {% else %}
-                                    <a href="{% url 'questionnaire:ranking-group-detail' ranking.slug cell.group.slug %}">{{ cell.group }}</a>
+                                    <a href="{% url 'questionnaire:exploration-group-detail' exploration.slug cell.group.slug %}">{{ cell.group }}</a>
                                 {% endif %}
                             </div>
                         </div>

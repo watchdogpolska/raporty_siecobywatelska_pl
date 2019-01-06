@@ -1,12 +1,12 @@
-{% extends "base-ranking.html" %}
+{% extends "base-exploration.html" %}
 
 {% load bootstrap_pagination %}
 {% load django_bootstrap_breadcrumbs %}
 
 {% block breadcrumbs %}
-    {% breadcrumb "Ranking" "/" %}
-    {% breadcrumb request.ranking "rankings:detail" request.ranking.slug %}
-    {% breadcrumb "Articles" "article:article-list" request.ranking.slug %}
+    {% breadcrumb "Explorations" "/" %}
+    {% breadcrumb request.exploration "exploration:detail" request.exploration.slug %}
+    {% breadcrumb "Articles" "article:article-list" request.exploration.slug %}
 {% endblock%}
 
 {% block content %}

@@ -1,12 +1,12 @@
-{% extends "base-ranking.html" %}
+{% extends "base-exploration.html" %}
 
 {% load django_bootstrap_breadcrumbs %}
 
 {% block breadcrumbs %}
-    {% breadcrumb "Ranking" "/" %}
-    {% breadcrumb request.ranking "rankings:detail" request.ranking.slug %}
-    {% breadcrumb "Groups" "questionnaire:ranking-group-list" request.ranking.slug %}
-    {% breadcrumb object "questionnaire:ranking-group-detail" request.ranking.slug object.slug %}
+    {% breadcrumb "Exploration" "/" %}
+    {% breadcrumb request.exploration "exploration:detail" request.exploration.slug %}
+    {% breadcrumb "Groups" "questionnaire:exploration-group-list" request.exploration.slug %}
+    {% breadcrumb object "questionnaire:exploration-group-detail" request.exploration.slug object.slug %}
 {% endblock%}
 
 {% block content %}
@@ -31,7 +31,23 @@
                     {{ object.description | safe }}
                 </div>
             </div>
+            <div class="rwp-card rwp-card--primary">
+                <div class="rwp-card__head">
+                    <div class="rwp-card__icon">
+                        <i class="fa fa-file-text" aria-hidden="true"></i>
+                    </div>
+                    <div class="rwp-card__header">
+                        <div class="rwp-card__title">
+                            Pytania
+                        </div>
+                    </div>
+                </div>
+                <div class="rwp-card__content">
+                    {{ object.groups }}
+                </div>
+            </div>
         </div>
+
         <div class="col-md-4">
             {% if institution_group_rate %}
                 <div class="rwp-card rwp-card--secondary">
@@ -56,7 +72,7 @@
                             {% for rate in institution_group_rate %}
                             <tr>
                                 <td>
-                                    <a href="{% url 'institutions:ranking-detail' ranking.slug rate.institution.slug %}">
+                                    <a href="{% url 'institutions:exploration-detail' exploration.slug rate.institution.slug %}">
                                         {{ rate.institution }}
                                     </a>
                                 </td>
@@ -64,7 +80,6 @@
                                     {{ rate }}
                                 </td>
                             </tr>
-
                             {% endfor %}
                         </tbody>
                     </table>

@@ -2,16 +2,16 @@ import factory
 import factory.fuzzy
 
 from raporty_siecobywatelska_pl.questionnaire.factory import GroupFactory
-from raporty_siecobywatelska_pl.ranking.models import Ranking
+from raporty_siecobywatelska_pl.exploration.models import Exploration
 
 
-class RankingFactory(factory.django.DjangoModelFactory):
+class ExplorationFactory(factory.django.DjangoModelFactory):
     name = factory.Sequence('title-letter-{0}'.format)
     description = factory.Sequence('quote-{0}'.format)
 
-    group_1 = factory.RelatedFactory(GroupFactory, "ranking")
-    group_2 = factory.RelatedFactory(GroupFactory, "ranking")
-    group_3 = factory.RelatedFactory(GroupFactory, "ranking")
+    group_1 = factory.RelatedFactory(GroupFactory, "exploration")
+    group_2 = factory.RelatedFactory(GroupFactory, "exploration")
+    group_3 = factory.RelatedFactory(GroupFactory, "exploration")
 
     @factory.post_generation
     def institutions(self, create, extracted, **kwargs):
@@ -25,4 +25,4 @@ class RankingFactory(factory.django.DjangoModelFactory):
                 self.institutions.add(institution)
 
     class Meta:
-        model = Ranking
+        model = Exploration

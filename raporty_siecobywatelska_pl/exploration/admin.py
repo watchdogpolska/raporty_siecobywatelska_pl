@@ -1,11 +1,11 @@
 from django.contrib import admin
 
 from raporty_siecobywatelska_pl.questionnaire.admin import GroupInline
-from .models import Ranking
+from .models import Exploration
 
 
-@admin.register(Ranking)
-class RankingAdmin(admin.ModelAdmin):
+@admin.register(Exploration)
+class ExplorationAdmin(admin.ModelAdmin):
     list_display = (
         'name',
     )

@@ -8,7 +8,7 @@ from django.views.generic import TemplateView
 from raporty_siecobywatelska_pl.answers.models import Answer
 from raporty_siecobywatelska_pl.institutions.models import Institution
 from raporty_siecobywatelska_pl.questionnaire.models import Question
-from raporty_siecobywatelska_pl.ranking.models import Ranking
+from raporty_siecobywatelska_pl.exploration.models import Exploration
 
 
 class AnswerForm(forms.ModelForm):
@@ -99,13 +99,13 @@ class AnswerSaveView(TemplateView):
         return Institution.objects.get(slug=institution_slug)
 
     @cached_property
-    def ranking(self):
-        ranking_slug = self.kwargs['ranking_slug']
-        return Ranking.objects.get(slug=ranking_slug)
+    def exploration(self):
+        exploration_slug = self.kwargs['exploration_slug']
+        return Exploration.objects.get(slug=exploration_slug)
 
     @cached_property
     def questions(self):
-        return Question.objects.filter(group__ranking=self.ranking)
+        return Question.objects.filter(group__exploration=self.exploration)
 
     def get(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
@@ -145,7 +145,7 @@ class AnswerSaveView(TemplateView):
         context.update({
             'formset': self.get_formset(),
             'institution': self.institution,
-            'ranking': self.ranking,
+            'exploration': self.exploration,
             'questions': self.questions,
             'helper': AnswerFormSetHelper()
         })

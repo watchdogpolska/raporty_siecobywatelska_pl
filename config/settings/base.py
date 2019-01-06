@@ -70,7 +70,7 @@ LOCAL_APPS = [
     'raporty_siecobywatelska_pl.users.apps.UsersConfig',
     'raporty_siecobywatelska_pl.institutions',
     'raporty_siecobywatelska_pl.teryt',
-    'raporty_siecobywatelska_pl.ranking',
+    'raporty_siecobywatelska_pl.exploration',
     'raporty_siecobywatelska_pl.questionnaire',
     'raporty_siecobywatelska_pl.answers',
     'raporty_siecobywatelska_pl.rates',
@@ -93,7 +93,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'raporty_siecobywatelska_pl.ranking.middleware.CurrentRankingMiddleware',
+    'raporty_siecobywatelska_pl.exploration.middleware.CurrentExplorationMiddleware',
 ]
 
 

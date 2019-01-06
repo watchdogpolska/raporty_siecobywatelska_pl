@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 from django_extensions.db.models import TimeStampedModel
 from tinymce.models import HTMLField
 
-from raporty_siecobywatelska_pl.ranking.models import Ranking
+from raporty_siecobywatelska_pl.exploration.models import Exploration
 
 
 def populate_slug(instance):
@@ -28,8 +28,8 @@ class Article(TimeStampedModel):
     description = HTMLField(
         verbose_name=_("Description")
     )
-    ranking = models.ForeignKey(
-        to=Ranking,
+    exploration = models.ForeignKey(
+        to=Exploration,
         on_delete=models.CASCADE
     )
 
@@ -37,7 +37,7 @@ class Article(TimeStampedModel):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('articles:ranking-article-detail', args=[self.ranking.slug, self.slug])
+        return reverse('articles:exploration-article-detail', args=[self.exploration.slug, self.slug])
 
     class Meta:
         verbose_name = _("Article")

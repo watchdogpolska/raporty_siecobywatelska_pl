@@ -5,7 +5,7 @@ from raporty_siecobywatelska_pl.institutions.models import Institution
 from django.utils.translation import ugettext_lazy as _
 
 from raporty_siecobywatelska_pl.questionnaire.models import Group
-from raporty_siecobywatelska_pl.ranking.models import Ranking
+from raporty_siecobywatelska_pl.exploration.models import Exploration
 
 
 @python_2_unicode_compatible
@@ -25,14 +25,14 @@ class Rate(models.Model):
 
 
 @python_2_unicode_compatible
-class InstitutionRankingRate(Rate):
+class InstitutionExplorationRate(Rate):
     institution = models.ForeignKey(Institution, blank=False, related_name="institution_rates")
-    ranking = models.ForeignKey(Ranking, blank=False, related_name="+")
+    exploration = models.ForeignKey(Exploration, blank=False, related_name="+")
 
     class Meta:
         verbose_name = _("Institution's rate")
         verbose_name_plural = _("Institutions rates")
-        unique_together = ('institution', 'ranking',)
+        unique_together = ('institution', 'exploration',)
 
 
 @python_2_unicode_compatible

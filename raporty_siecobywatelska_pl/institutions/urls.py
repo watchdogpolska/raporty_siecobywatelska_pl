@@ -7,14 +7,14 @@ from . import views
 
 urlpatterns = [
     url(
-        _(r'^(?P<ranking_slug>[\w-]+)/institution/(?P<slug>[\w-]+)/$'),
-        views.RankingInstitutionDetailView.as_view(),
-        name="ranking-detail"
+        _(r'^(?P<exploration_slug>[\w-]+)/institution/(?P<slug>[\w-]+)/$'),
+        views.ExplorationInstitutionDetailView.as_view(),
+        name="exploration-detail"
     ),
     url(
-        _(r'^(?P<ranking_slug>[\w-]+)/institution/$'),
-        views.RankingInstitutionListView.as_view(),
-        name="ranking-list"
+        _(r'^(?P<exploration_slug>[\w-]+)/institution/$'),
+        views.ExplorationInstitutionListView.as_view(),
+        name="exploration-list"
     ),
     url(
         _(r'^institution/autocomplete$'),

@@ -2,11 +2,11 @@ from django.core.management.base import BaseCommand, CommandError
 
 from raporty_siecobywatelska_pl.institutions.models import Institution
 from raporty_siecobywatelska_pl.questionnaire.models import Group
-from raporty_siecobywatelska_pl.ranking.models import Ranking
+from raporty_siecobywatelska_pl.exploration.models import Exploration
 from django.db.models import Sum, Count, Prefetch
 
 from raporty_siecobywatelska_pl.rates.calculators import refresh_groups_institution_rates
-from raporty_siecobywatelska_pl.rates.models import InstitutionRankingRate, InstitutionGroupRate
+from raporty_siecobywatelska_pl.rates.models import InstitutionExplorationRate, InstitutionGroupRate
 
 
 class Command(BaseCommand):
@@ -14,21 +14,21 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument(
-            '--ranking_id',
+            '--exploration_id',
             action='store_true',
-            dest='ranking_id',
+            dest='exploration_id',
             default=False,
-            help='Specifies a specific ranking',
+            help='Specifies a specific exploration',
         )
 
     def handle(self, *args, **options):
-        rankings_qs = Ranking.objects
-        if options["ranking_id"]:
-            rankings_qs = rankings_qs.filter(id=args)
+        exploration_qs = Exploration.objects
+        if options["exploration_id"]:
+            exploration_qs = exploration_qs.filter(id=args)
 
-        for ranking in rankings_qs.all():
-            for institution in ranking.institutions.all():
-                refresh_groups_institution_rates(institution, ranking)
+        for exploration in exploration_qs.all():
+            for institution in exploration.institutions.all():
+                refresh_groups_institution_rates(institution, exploration)
             self.stdout.write(
                 'Refreshed rate for "%s" (id: %s)' % (str(institution), institution.pk))
         self.stdout.write(self.style.SUCCESS('Successfully refreshed all rates'))

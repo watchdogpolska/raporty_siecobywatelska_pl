@@ -5,13 +5,13 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from django.views import defaults as default_views
 
-from raporty_siecobywatelska_pl.ranking.views import RankingList
+from raporty_siecobywatelska_pl.exploration.views import ExplorationList
 
 urlpatterns = [
     # url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name='home'),
     url(r'^tinymce/', include('tinymce.urls')),
     url(r'^about/$', TemplateView.as_view(template_name='pages/about.html'), name='about'),
-    url(r'^$', RankingList.as_view(), name="home"),
+    url(r'^$', ExplorationList.as_view(), name="home"),
 
     # Admin
     url(settings.ADMIN_URL, admin.site.urls),
@@ -20,7 +20,7 @@ urlpatterns = [
     url(r'^users/', include('raporty_siecobywatelska_pl.users.urls', namespace='users')),
     url(r'^accounts/', include('allauth.urls')),
 
-    url(r'^', include('raporty_siecobywatelska_pl.ranking.urls', namespace='rankings')),
+    url(r'^', include('raporty_siecobywatelska_pl.exploration.urls', namespace='exploration')),
     url(r'^', include('raporty_siecobywatelska_pl.institutions.urls', namespace='institutions')),
     url(r'^', include('raporty_siecobywatelska_pl.answers.urls', namespace='answers')),
     url(r'^', include('raporty_siecobywatelska_pl.questionnaire.urls', namespace='questionnaire')),

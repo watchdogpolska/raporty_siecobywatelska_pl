@@ -15,8 +15,8 @@ class QuestionInline(admin.StackedInline):
 
 @admin.register(Group)
 class GroupAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'ranking')
-    list_filter = ('ranking',)
+    list_display = ('id', 'name', 'exploration')
+    list_filter = ('exploration',)
     search_fields = ('name',)
     inlines = [
         QuestionInline

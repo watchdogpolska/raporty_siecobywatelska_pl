@@ -4,34 +4,34 @@ from django.views.generic import FormView, TemplateView
 
 from raporty_siecobywatelska_pl.analysis.tables import InstitutionCompareView
 from raporty_siecobywatelska_pl.institutions.models import Institution
-from raporty_siecobywatelska_pl.ranking.models import Ranking
-from raporty_siecobywatelska_pl.rates.models import InstitutionRankingRate
+from raporty_siecobywatelska_pl.exploration.models import Exploration
+from raporty_siecobywatelska_pl.rates.models import InstitutionExplorationRate
 
 
-class RankingInstitutionCompareView(TemplateView):
-    template_name = "analysis/ranking_institution_compare.html"
+class ExplorationInstitutionCompareView(TemplateView):
+    template_name = "analysis/exploration_institution_compare.html"
 
     def get_queryset(self):
-        return Institution.objects.filter(rankings__slug=self.request.ranking.slug)
+        return Institution.objects.filter(explorations__slug=self.request.exploration.slug)
 
     def get_context_data(self, **kwargs):
-        return super(RankingInstitutionCompareView, self).get_context_data(
-            ranking=self.request.ranking,
+        return super(ExplorationInstitutionCompareView, self).get_context_data(
+            exploration=self.request.exploration,
             table=self.get_table_view().get_table(),
             **kwargs
         )
 
     def get_table_view(self):
-        return InstitutionCompareView(self.request.ranking, self.get_queryset())
+        return InstitutionCompareView(self.request.exploration, self.get_queryset())
 
 
 class AnalysisList(TemplateView):
     template_name = "analysis/analysis_list.html"
 
 
-class RankingInstitutionGroupingView(TemplateView):
+class ExplorationInstitutionGroupingView(TemplateView):
     template_name = 'analysis/analysis_grouping.html'
 
     def get_context_data(self, **kwargs):
-        rates = InstitutionRankingRate.objects.group_by('institution__', 'author').filter(ranking=self.request.ranking)
+        rates = InstitutionExplorationRate.objects.group_by('institution__', 'author').filter(exploration=self.request.exploration)
         return super().get_context_data(rates=rates, **kwargs)

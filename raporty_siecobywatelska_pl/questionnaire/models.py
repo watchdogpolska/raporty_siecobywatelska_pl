@@ -1,11 +1,12 @@
 from autoslug import AutoSlugField
 from django.core.urlresolvers import reverse
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 from tinymce.models import HTMLField
 
-from raporty_siecobywatelska_pl.ranking.models import Ranking
+from raporty_siecobywatelska_pl.exploration.models import Exploration
 
 
 @python_2_unicode_compatible
@@ -22,8 +23,8 @@ class Group(models.Model):
         verbose_name=_("Slug"),
         unique=True
     )
-    ranking = models.ForeignKey(
-        to=Ranking,
+    exploration = models.ForeignKey(
+        to=Exploration,
         on_delete=models.CASCADE
     )
 
@@ -33,7 +34,7 @@ class Group(models.Model):
         ordering = ['name']
 
     def get_absolute_url(self):
-        return reverse('questionnaire:ranking-group-detail', args=[self.ranking.slug, self.slug])
+        return reverse('questionnaire:exploration-group-detail', args=[self.exploration.slug, self.slug])
 
     def __str__(self):
         return self.name
@@ -52,7 +53,27 @@ class Question(models.Model):
         ordering = ['name']
 
     def get_absolute_url(self):
-        return reverse('rankings:detail', kwargs={'slug': self.group.ranking.slug})
+        return reverse('exploration:detail', kwargs={'slug': self.group.exploration.slug})
 
     def __str__(self):
         return self.name
+
+
+@python_2_unicode_compatible
+class TextOption(models.Model):
+    question = models.ForeignKey(
+        to=Question,
+        on_delete=models.CASCADE
+    )
+    name = models.CharField(
+        max_length=250,
+        verbose_name=_("Name")
+    )
+    value = models.IntegerField(
+        default=0,
+        validators=[MinValueValidator(-2), MaxValueValidator(2)],
+    )
+
+    def __str__(self):
+        return self.name
+

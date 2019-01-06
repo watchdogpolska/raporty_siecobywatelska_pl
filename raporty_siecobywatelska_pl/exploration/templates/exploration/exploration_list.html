@@ -2,16 +2,16 @@
 
 {% load bootstrap_pagination %}
 {% load django_bootstrap_breadcrumbs %}
-        {% bootstrap_paginate page_obj %}
+
 {% block breadcrumbs %}
-    {% breadcrumb "Ranking" "/" %}
+    {% breadcrumb "exploration" "/" %}
 {% endblock%}
 
 
 {% block content %}
 
-    <h1>Ranking <small>Lista rankingów</small></h1>
-
+    <h1>Badania</h1>
+    {# TODO: Whats iss up?#}
     {% if object_list %}
         <div class="row">
         {% for object in object_list %}

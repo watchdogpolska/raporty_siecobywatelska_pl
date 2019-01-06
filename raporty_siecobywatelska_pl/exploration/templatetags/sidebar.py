@@ -1,7 +1,7 @@
 from django import template
 from django.urls import reverse
 
-from raporty_siecobywatelska_pl.ranking.models import Ranking
+from raporty_siecobywatelska_pl.exploration.models import Exploration
 
 register = template.Library()
 
@@ -10,7 +10,7 @@ register = template.Library()
 def sidenav_item_active(context, viewname, *args, **kwargs):
     url = reverse(viewname=viewname, args=args, kwargs=kwargs)
     request = context['request']
-    if viewname == "rankings:detail":
+    if viewname == "exploration:detail":
         current_viewname = request.resolver_match.namespace + ':' + request.resolver_match.url_name
         if current_viewname != viewname:
             return ''
@@ -20,11 +20,11 @@ def sidenav_item_active(context, viewname, *args, **kwargs):
     return ''
 
 
-@register.inclusion_tag("partials/_ranking_dropdown.html", takes_context=True)
-def ranking_dropdown(context):
+@register.inclusion_tag("partials/_exploration_dropdown.html", takes_context=True)
+def exploration_dropdown(context):
     request = context['request']
-    rankings = Ranking.objects.values("pk", 'name', 'slug')
+    explorations = Exploration.objects.values("pk", 'name', 'slug')
     return {
-        "rankings": rankings,
-        "current_ranking": request.ranking
+        "explorations": explorations,
+        "current_exploration": request.exploration
     }

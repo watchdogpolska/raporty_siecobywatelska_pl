@@ -8,14 +8,14 @@ from . import views
 
 urlpatterns = [
     url(
-        _(r'^(?P<ranking_slug>[\w-]+)/groups/(?P<slug>[\w-]+)/$'),
-        views.RankingGroupDetailView.as_view(),
-        name="ranking-group-detail"
+        _(r'^(?P<exploration_slug>[\w-]+)/groups/(?P<slug>[\w-]+)/$'),
+        views.ExplorationGroupDetailView.as_view(),
+        name="exploration-group-detail"
     ),
     url(
-        _(r'^(?P<ranking_slug>[\w-]+)/groups/$'),
-        views.RankingGroupListView.as_view(),
-        name="ranking-group-list"
+        _(r'^(?P<exploration_slug>[\w-]+)/groups/$'),
+        views.ExplorationGroupListView.as_view(),
+        name="exploration-group-list"
     ),
 
 ]

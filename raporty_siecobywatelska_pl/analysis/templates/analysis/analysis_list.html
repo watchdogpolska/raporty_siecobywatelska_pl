@@ -1,12 +1,12 @@
-{% extends "base-ranking.html" %}
+{% extends "base-exploration.html" %}
 
 {% load bootstrap_pagination %}
 {% load django_bootstrap_breadcrumbs %}
 {% load crispy_forms_tags %}
 
 {% block breadcrumbs %}
-    {% breadcrumb "Ranking" "/" %}
-    {% breadcrumb request.ranking "rankings:detail" request.ranking.slug %}
+    {% breadcrumb "Exploration" "/" %}
+    {% breadcrumb request.exploration "exploration:detail" request.exploration.slug %}
     {% breadcrumb "Analysis" "analysis:analysis-list"%}
 {% endblock%}
 
@@ -16,7 +16,7 @@
 
     <div class="row">
         <div class="col-md-6 col-lg-4 col-xl-4">
-            <a href="{% url "analysis:analysis-institution" request.ranking.slug %}" class="rwp-card rwp-card--azure">
+            <a href="{% url "analysis:analysis-institution" request.exploration.slug %}" class="rwp-card rwp-card--azure">
                 <div class="rwp-card__head">
                     <div class="rwp-card__icon">
                         <i class="fa fa-bookmark" aria-hidden="true"></i>

@@ -1,15 +1,15 @@
 from django.utils.functional import cached_property
 
 from raporty_siecobywatelska_pl.questionnaire.models import Group
-from raporty_siecobywatelska_pl.rates.models import InstitutionGroupRate, InstitutionRankingRate
+from raporty_siecobywatelska_pl.rates.models import InstitutionGroupRate, InstitutionExplorationRate
 from raporty_siecobywatelska_pl.tables import BaseView
 
 
 class InstitutionView(BaseView):
-    def __init__(self, ranking, institutions):
+    def __init__(self, exploration, institutions):
         super().__init__()
         self.institutions = institutions
-        self.ranking = ranking
+        self.exploration = exploration
 
     def get_institution_rate(self, institution):
         rate = (
@@ -32,7 +32,7 @@ class InstitutionView(BaseView):
 
     @cached_property
     def groups(self):
-        return Group.objects.filter(ranking=self.ranking).all()
+        return Group.objects.filter(exploration=self.exploration).all()
 
     @cached_property
     def group_rates(self):
@@ -41,7 +41,7 @@ class InstitutionView(BaseView):
 
     @cached_property
     def institution_rates(self):
-        return InstitutionRankingRate.objects.filter(ranking=self.ranking)\
+        return InstitutionExplorationRate.objects.filter(exploration=self.exploration)\
             .filter(institution__in=self.institutions).all()
 
 
@@ -55,7 +55,7 @@ class InstitutionFilterTableView(InstitutionView):
         position = position - 1
         if position < len(self.groups):
             return "group"
-        return "ranking"
+        return "exploration"
 
     def get_rows_count(self):
         return len(self.institutions)
@@ -65,8 +65,8 @@ class InstitutionFilterTableView(InstitutionView):
         column_type = self.get_column_type(column)
         if column_type == "group":
             context["group"] = self.groups[column - 1]
-        if column_type == "ranking":
-            context["ranking"] = self.ranking
+        if column_type == "exploration":
+            context["exploration"] = self.exploration
         return context
 
     def get_row_context(self, row):
@@ -81,6 +81,6 @@ class InstitutionFilterTableView(InstitutionView):
         if column_type == "group":
             group = self.groups[column - 1]
             context["rate"] = self.get_group_institution_rate(group, institution)
-        if column_type == "ranking":
+        if column_type == "exploration":
             context["rate"] = self.get_institution_rate(institution)
         return context

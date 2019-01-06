@@ -1,14 +1,14 @@
-{% extends "base-ranking.html" %}
+{% extends "base-exploration.html" %}
 
 {% load django_bootstrap_breadcrumbs %}
 
 {% block breadcrumbs %}
-    {% breadcrumb "Ranking" "/" %}
-    {% breadcrumb ranking "ranking:detail" ranking.slug %}
+    {% breadcrumb "Exploration" "/" %}
+    {% breadcrumb exploration "exploration:detail" exploration.slug %}
 {% endblock %}
 
 {% block content %}
-    <h1>{{ ranking }}</h1>
+    <h1>{{ exploration }}</h1>
 
     <div class="row">
         <div class="col-md-8">
@@ -18,7 +18,7 @@
                         <i class="fa fa-bank" aria-hidden="true"></i>
                     </div>
                     <div class="rwp-card__header">
-                        <div class="rwp-card__title">Ranking</div>
+                        <div class="rwp-card__title">Badanie</div>
                         <div class="rwp-card__subtitle">Podstawoe informacje</div>
                     </div>
                 </div>
@@ -28,7 +28,7 @@
             </div>
         </div>
         <div class="col-md-4">
-            <a href="{% url "questionnaire:ranking-group-list" ranking.slug %}"
+            <a href="{% url "questionnaire:exploration-group-list" exploration.slug %}"
                class="rwp-card rwp-card--primary">
                 <div class="rwp-card__content">
                     <div class="rwp-stats rwp-stats--secondary rwp-stats--reversed">
@@ -44,7 +44,7 @@
                     Pozostało <b>0</b> z twojej okolicy
                 </div>
             </a>
-            <a href="{% url "articles:ranking-article-list" ranking.slug %}"
+            <a href="{% url "articles:exploration-article-list" exploration.slug %}"
                class="rwp-card rwp-card--primary">
                 <div class="rwp-card__content">
                     <div class="rwp-stats rwp-stats--secondary rwp-stats--reversed">
@@ -57,7 +57,7 @@
                     </div>
                 </div>
             </a>
-            <a href="{% url "institutions:ranking-list" ranking.slug %}"
+            <a href="{% url "institutions:exploration-list" exploration.slug %}"
                class="rwp-card rwp-card--primary">
                 <div class="rwp-card__content">
                     <div class="rwp-stats rwp-stats--secondary rwp-stats--reversed">
