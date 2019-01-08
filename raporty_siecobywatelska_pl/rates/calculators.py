@@ -7,8 +7,8 @@ from raporty_siecobywatelska_pl.rates.models import InstitutionGroupRate, Instit
 
 def refresh_groups_institution_rates(institution, exploration):
     groups = Group.objects.filter(exploration=exploration) \
-        .filter(question__answer__institution_id=institution) \
-        .annotate(collected_points=Sum('question__answer__value')) \
+        .filter(question__result__institution_id=institution) \
+        .annotate(collected_points=Sum('question__result__option__value')) \
         .annotate(total_points=Count('question__answer'))
     for group in groups:
         _save_or_update_rate(
@@ -20,7 +20,7 @@ def refresh_groups_institution_rates(institution, exploration):
 
 def refresh_exploration_institution_rates(institutions, exploration):
     institution_results = Institution.objects.filter(pk__in=institutions) \
-        .annotate(collected_points=Sum('answer__value')) \
+        .annotate(collected_points=Sum('result__option__value')) \
         .annotate(total_points=Count('answer'))
     for institution in institution_results:
         _save_or_update_rate(

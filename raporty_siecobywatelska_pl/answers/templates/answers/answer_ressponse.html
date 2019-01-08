@@ -1,0 +1,49 @@
+
+{% extends "base-exploration.html" %}
+
+{% load crispy_forms_tags %}
+
+{% load django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+    {% breadcrumb "Explorations" "/" %}
+    {% breadcrumb request.exploration "exploration:detail" request.exploration.slug %}
+    {% breadcrumb "Institutions" "institutions:exploration-list" request.exploration.slug %}
+    {% breadcrumb institution "institutions:exploration-detail" request.exploration.slug institution.slug %}
+    {% breadcrumb "Save answer" "answers:save_answer" request.exploration.slug institution.slug %}
+{% endblock%}
+
+{% block content %}
+
+    <form action="" method="post">
+        {% for question, answer in questions_with_answer %}
+        <b>{{ question }}</b>
+        <div>
+        {% for option in question.textoption_set.all %}
+          <div>
+            {{ answer.option.id  }} : {{ option.id  }}
+            {% if answer.option.id == option.id %}
+              <input
+                type="radio"
+                name="question[{{ question.pk }}]"
+                value="{{ option.pk }}"
+                checked />{{ option }}
+              AAAAA
+            {% else %}
+              <input
+                type="radio"
+                name="question[{{ question.pk }}]"
+                value="{{ option.pk }}"/>{{ option }}
+            {% endif %}
+          </div>
+        {% endfor %}
+        </div>
+        {% endfor %}
+
+        {% csrf_token %}
+        <input type="submit" value="Submit">
+    </form>
+
+{% endblock %}
+
+

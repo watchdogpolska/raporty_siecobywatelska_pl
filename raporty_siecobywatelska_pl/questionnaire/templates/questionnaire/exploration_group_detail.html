@@ -43,7 +43,19 @@
                     </div>
                 </div>
                 <div class="rwp-card__content">
-                    {{ object.groups }}
+                <ul>
+                {% for question in object.question_set.all %}
+                    <li>
+                      <b>{{ question }}</b>
+                      <ul>
+                      {% for option in question.textoption_set.all.all %}
+                        <li>{{ option }}</li>
+                      {% endfor %}
+                      </ul>
+
+                    </li>
+                {% endfor %}
+                </ul>
                 </div>
             </div>
         </div>

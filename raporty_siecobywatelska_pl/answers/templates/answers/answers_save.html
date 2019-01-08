@@ -21,8 +21,7 @@
     <form method="post">
 
         {% csrf_token %}
-
-{#    {{ formset.management_form.as_table }}#}
+        {{ formset.management_form.as_table }}
         {% crispy formset helper %}
 
     </form>

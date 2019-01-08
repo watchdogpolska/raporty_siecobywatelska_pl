@@ -1,10 +1,7 @@
-from django import forms
-from django.utils.functional import cached_property
-from django.views.generic import FormView, TemplateView
+from django.views.generic import TemplateView
 
 from raporty_siecobywatelska_pl.analysis.tables import InstitutionCompareView
 from raporty_siecobywatelska_pl.institutions.models import Institution
-from raporty_siecobywatelska_pl.exploration.models import Exploration
 from raporty_siecobywatelska_pl.rates.models import InstitutionExplorationRate
 
 

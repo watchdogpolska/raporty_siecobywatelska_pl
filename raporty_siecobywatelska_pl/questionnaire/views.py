@@ -13,10 +13,10 @@ class ExplorationGroupDetailView(DetailView):
         return super().get_queryset().filter(exploration=self.request.exploration)
 
     def get_context_data(self, **kwargs):
-        return super().get_context_data(
-            exploration=self.request.exploration,
-            institution_group_rate=self.institution_group_rate,
-            **kwargs)
+        data = super().get_context_data(exploration=self.request.exploration,
+                                        institution_group_rate=self.institution_group_rate, **kwargs)
+        # import ipdb; ipdb.set_trace()
+        return data
 
     @cached_property
     def institution_group_rate(self):

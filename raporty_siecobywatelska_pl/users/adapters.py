@@ -10,8 +10,8 @@ class AccountAdapter(DefaultAccountAdapter):
         return getattr(settings, 'ACCOUNT_ALLOW_REGISTRATION', True)
 
     def get_login_redirect_url(self, request):
-        if is_authenticated(request.user) and not self.request.user.is_initially_introduced:
-            return reverse("users:welcome")
+        # if is_authenticated(request.user) and not self.request.user.is_initially_introduced:
+        #     return reverse("users:welcome")
         return super().get_login_redirect_url(request)
 
     def get_email_confirmation_url(self, request, emailconfirmation):
