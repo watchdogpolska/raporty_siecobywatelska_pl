@@ -20,7 +20,7 @@
                 <i class="fa fa-bank" aria-hidden="true"></i>
             </div>
             <div class="rwp-card__header">
-                <div class="rwp-card__title">List of institution</div>
+                <div class="rwp-card__title">Lista instytucji</div>
             </div>
         </div>
         <div class="rwp-card__content">
@@ -35,7 +35,7 @@
                                 <tr>
                                     {% for heading in table.headings %}
                                         {% if heading.column_type == "name" %}
-                                            <th rowspan="2">Name</th>
+                                            <th rowspan="2">Nazwa</th>
                                         {% elif heading.column_type == "group" %}
                                             <th>
                                                 <a href="{% url 'questionnaire:exploration-group-detail' request.exploration.slug heading.group.slug %}">
@@ -43,7 +43,7 @@
                                                 </a>
                                             </th>
                                         {% elif heading.column_type == "exploration" %}
-                                            <th rowspan="2">Total</th>
+                                            <th rowspan="2">Całkowita</th>
                                         {% endif %}
                                     {% endfor %}
                                 </tr>

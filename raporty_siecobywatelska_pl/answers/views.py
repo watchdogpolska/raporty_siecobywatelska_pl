@@ -47,8 +47,10 @@ class AnswerSaveView(TemplateView):
         questions_with_answer = []
 
         for question in questions:
-            answer = next(answer for answer in answers if answer.question_id == question.id)
-            import ipdb; ipdb.set_trace()
+            try:
+                answer = next(answer for answer in answers if answer.question_id == question.id)
+            except StopIteration:
+                answer = None
             questions_with_answer.append((question, answer))
 
         return super().get_context_data(

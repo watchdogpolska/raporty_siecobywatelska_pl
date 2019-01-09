@@ -4,7 +4,7 @@
 {% load django_bootstrap_breadcrumbs %}
 
 {% block breadcrumbs %}
-    {% breadcrumb "exploration" "/" %}
+    {% breadcrumb "Exploration" "/" %}
 {% endblock%}
 
 
@@ -17,9 +17,6 @@
         {% for object in object_list %}
             <div class="col-md-6 col-lg-4 col-xl-3">
                 <a href="{{ object.get_absolute_url }}" class="rwp-card rwp-card__header--azure">
-                    <div class="rwp-card__img">
-                        <img src="http://lorempixel.com/400/200/cats/" alt="">
-                    </div>
                     <div class="rwp-card__head">
                         <div class="rwp-card__header">
                             <div class="rwp-card__title">{{ object }}</div>

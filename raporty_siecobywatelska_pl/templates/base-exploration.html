@@ -101,25 +101,25 @@
                         <li class="sidenav__item{% sidenav_item_active "questionnaire:exploration-group-list" request.exploration.slug %}">
                             <a href="{% url "questionnaire:exploration-group-list" request.exploration.slug %}" class="sidenav__link">
                                 <span class="sidenav__icon"><i class="fa fa-balance-scale" aria-hidden="true"></i></span>
-                                <span class="sidenav__label">Groups</span>
+                                <span class="sidenav__label">Grupy pytań</span>
                             </a>
                         </li>
                         <li class="sidenav__item{% sidenav_item_active "institutions:exploration-list" request.exploration.slug %}">
                             <a href="{% url "institutions:exploration-list" request.exploration.slug %}" class="sidenav__link">
                                 <span class="sidenav__icon"><i class="fa fa-university" aria-hidden="true"></i></span>
-                                <span class="sidenav__label">Institutions</span>
+                                <span class="sidenav__label">Instytucje</span>
                             </a>
                         </li>
                         <li class="sidenav__item{% sidenav_item_active "analysis:analysis-list" request.exploration.slug %}">
                             <a href="{% url "analysis:analysis-list" request.exploration.slug %}" class="sidenav__link">
                                 <span class="sidenav__icon"><i class="fa fa-bar-chart" aria-hidden="true"></i></span>
-                                <span class="sidenav__label">Analysis</span>
+                                <span class="sidenav__label">{% trans "Analysis" %}</span>
                             </a>
                         </li>
                         <li class="sidenav__item{% sidenav_item_active "articles:exploration-article-list" request.exploration.slug %}">
                             <a href="{% url "articles:exploration-article-list" request.exploration.slug %}" class="sidenav__link">
                                 <span class="sidenav__icon"><i class="fa fa-book" aria-hidden="true"></i></span>
-                                <span class="sidenav__label">Articles</span>
+                                <span class="sidenav__label">{% trans "Articles" %}</span>
                             </a>
                         </li>
                     </ul>
@@ -128,14 +128,14 @@
                         <ul class="sidenav__list">
                             <li class="sidenav__item">
                                 <a class="sidenav__link" href="/">
-                                    <span class="sidenav__label">Home</span>
+                                    <span class="sidenav__label">{% trans "Home" %}</span>
                                 </a>
                             </li>
-                            <li class="sidenav__item">
-                                <a class="sidenav__link" href="{% url 'about' %}">
-                                    <span class="sidenav__label">About</span>
-                                </a>
-                            </li>
+{#                            <li class="sidenav__item">#}
+{#                                <a class="sidenav__link" href="{% url 'about' %}">#}
+{#                                    <span class="sidenav__label">About</span>#}
+{#                                </a>#}
+{#                            </li>#}
                         </ul>
                     </div>
                 </div>

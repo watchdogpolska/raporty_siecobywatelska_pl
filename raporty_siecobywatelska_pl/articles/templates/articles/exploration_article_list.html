@@ -11,16 +11,13 @@
 
 {% block content %}
 
-    <h1>Articles</h1>
+    <h1>Artykuły</h1>
 
     {% if object_list.all %}
         <div class="row">
             {% for object in object_list %}
                 <div class="col-md-6 col-lg-4 col-xl-3">
                     <a href="{{ object.get_absolute_url }}" class="rwp-card">
-                        <div class="rwp-card__img">
-                            <img src="http://lorempixel.com/400/200/cats/" alt="">
-                        </div>
                         <div class="rwp-card__head">
                             <div class="rwp-card__header">
                                 <div class="rwp-card__title">{{ object }}</div>
@@ -40,7 +37,7 @@
 
     {% else %}
         <p>
-            No articles found
+            Brak artykułów
         </p>
     {% endif %}
 

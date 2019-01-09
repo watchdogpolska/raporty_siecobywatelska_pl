@@ -30,9 +30,9 @@
                     {{ object.description | safe }}
                 </div>
                 <div class="rwp-card__footer">
-                    <i class="fa fa-clock-o" aria-hidden="true"></i> Creation date: {{ object.created |date:"d m Y" }}
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> Data utworzenia: {{ object.created |date:"d m Y" }}
                     {% if object.created != object.modified %}
-                        <i class="fa fa-clock-o fa-rotate-90" aria-hidden="true"></i> Modified date: {{ object.modified |date:"d m Y" }}
+                        <i class="fa fa-clock-o fa-rotate-90" aria-hidden="true"></i> Data modyfikacji: {{ object.modified |date:"d m Y" }}
                     {% endif %}
                 </div>
             </div>

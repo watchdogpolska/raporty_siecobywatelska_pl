@@ -8,9 +8,9 @@
 {% block breadcrumbs %}
     {% breadcrumb "Explorations" "/" %}
     {% breadcrumb request.exploration "exploration:detail" request.exploration.slug %}
-    {% breadcrumb "Institutions" "institutions:exploration-list" request.exploration.slug %}
+    {% breadcrumb "Instytucje" "institutions:exploration-list" request.exploration.slug %}
     {% breadcrumb institution "institutions:exploration-detail" request.exploration.slug institution.slug %}
-    {% breadcrumb "Save answer" "answers:save_answer" request.exploration.slug institution.slug %}
+    {% breadcrumb "Dodaj odpowiedzi" "answers:save_answer" request.exploration.slug institution.slug %}
 {% endblock%}
 
 {% block content %}
@@ -21,14 +21,12 @@
         <div>
         {% for option in question.textoption_set.all %}
           <div>
-            {{ answer.option.id  }} : {{ option.id  }}
             {% if answer.option.id == option.id %}
               <input
                 type="radio"
                 name="question[{{ question.pk }}]"
                 value="{{ option.pk }}"
                 checked />{{ option }}
-              AAAAA
             {% else %}
               <input
                 type="radio"

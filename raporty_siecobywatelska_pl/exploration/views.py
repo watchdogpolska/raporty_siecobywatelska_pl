@@ -1,11 +1,14 @@
 from audioop import reverse
 
-from django.db.models import Count
+from django.db.models import Count, OuterRef, Subquery, F
 from django.utils.functional import cached_property
 from django.views.generic import ListView, DetailView, RedirectView
 
+from raporty_siecobywatelska_pl.articles.models import Article
 from raporty_siecobywatelska_pl.exploration import models
 from raporty_siecobywatelska_pl.exploration.models import Exploration
+from raporty_siecobywatelska_pl.institutions.models import Institution
+from raporty_siecobywatelska_pl.questionnaire.models import Group
 
 
 class ExplorationRedirect(RedirectView):
@@ -35,8 +38,24 @@ class ExplorationDetail(DetailView):
     def stats(self):
         return models.Exploration.objects.filter(pk=self.request.exploration.pk)\
             .annotate(num_institution=Count('institutions'))\
-            .annotate(num_article=Count('article'))\
-            .annotate(num_group=Count('group'))\
+            .annotate(
+                num_article=Subquery(
+                    Article.objects
+                    .filter(exploration=OuterRef('pk'))\
+                    .order_by()
+                    .values('exploration')\
+                    .annotate(count=Count('exploration'))\
+                    .values('count')[:1]
+                )
+            )\
+            .annotate(num_group=Subquery(
+                    Group.objects
+                    .filter(exploration=OuterRef('pk')) \
+                    .order_by()
+                    .values('exploration')\
+                    .annotate(count=Count('exploration'))\
+                    .values('count')[:1]
+            ))\
             .first()
 
-
+# .annotate(num_institution=Count('institutions'))\

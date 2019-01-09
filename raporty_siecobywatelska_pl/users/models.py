@@ -31,11 +31,13 @@ class AnswersCredibilityPoints(models.Model):
     )
     institution = models.ForeignKey(
         to=Institution,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        related_name = '+'
     )
     exploration = models.ForeignKey(
         to=Institution,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        related_name = '+'
     )
     created = CreationDateTimeField(
         verbose_name=_('created')

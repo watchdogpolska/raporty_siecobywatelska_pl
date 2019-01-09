@@ -10,9 +10,11 @@
 {% endblock%}
 
 {% block content %}
-    <a href="{% url "answers:save_answer" request.exploration.slug object.slug %}" class="btn btn-primary float-right">
-        <i class="fa fa-pencil" aria-hidden="true"></i> Edit answers
-    </a>
+    {% if user.is_authenticated %}
+      <a href="{% url "answers:save_answer" request.exploration.slug object.slug %}" class="btn btn-primary float-right">
+          <i class="fa fa-pencil" aria-hidden="true"></i> Udziel odpowiedzi
+      </a>
+    {% endif %}
 
     <h1>{{ object }}</h1>
 
@@ -23,7 +25,13 @@
                     <div class="rwp-stats rwp-stats--secondary rwp-stats--reversed">
                         <div class="rwp-stats__content">
                             <div class="rwp-stats__title">Ocena</div>
-                            <div class="rwp-stats__count">{{ institution_rate }}</div>
+                            <div class="rwp-stats__count">
+                              {% if institution_rate %}
+                                {{ institution_rate }}
+                              {% else %}
+                                Brak informacji
+                              {% endif %}
+                            </div>
                         </div>
                         <div class="rwp-stats__icon"><i class="fa fa-balance-scale" aria-hidden="true"></i></div>
                     </div>
@@ -42,31 +50,34 @@
                     {{ group.group }}
                 </div>
                 <div class="rwp-card__addon">
-                    <span class="float-right badge badge-secondary">{{ group.rate }}</span>
+                    <span class="float-right badge badge-secondary">
+                      {% if group.rate %}
+                        {{ group.rate }}
+                      {% else %}
+                        Brak informacji
+                      {% endif %}
+                    </span>
                 </div>
             </div>
             <div class="rwp-card__content">
                 <div id="group_{{ group.group.slug }}">
                 <div class="row">
-                    <div class="col-md-3">
-                        <div style="position: relative; padding-bottom: 100%">
-                            <div style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; background: purple">
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-9">
+{#                    <div class="col-md-3">#}
+{#                        <div style="position: relative; padding-bottom: 100%">#}
+{#                            <div style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; background: purple">#}
+{##}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+                    <div class="col-md-{# 9 #}12">
                         <table class="table table-hover">
                             <thead class="thead-dark">
                                 <tr>
                                     <th class="col-md-6">
-                                        Question
+                                        Pytanie
                                     </th>
                                     <th class="col-md-3">
-                                        Answer
-                                    </th>
-                                    <th class="col-md-3">
-                                        Note
+                                        Odpowiedź
                                     </th>
                                 </tr>
                             </thead>
@@ -76,16 +87,13 @@
                                         <td>
                                             {{ question.question }}
                                         </td>
-                                        {% if question.answer %}
+                                        {% if question.result %}
                                             <td>
-                                                {{ question.answer.value }}
-                                            </td>
-                                            <td>
-                                                {{ question.answer.note }}
+                                                {{ question.result.value }}
                                             </td>
                                         {% else %}
-                                            <td colspan="2">
-                                                No information
+                                            <td>
+                                                Brak informacji
                                             </td>
                                         {% endif %}
                                     </tr>
@@ -104,7 +112,7 @@
 
     {% with other_rathings=other_explorations.all %}
         {% if other_explorations %}
-            <h2>The institution was also included in:</h2>
+            <h2>Ta instytucja także brała udział w:</h2>
             <ul>
             {% for exploration in other_explorations %}
                 <li>
