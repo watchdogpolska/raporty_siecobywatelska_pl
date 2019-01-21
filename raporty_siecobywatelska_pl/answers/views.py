@@ -1,9 +1,5 @@
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Fieldset, Submit
-from django import forms
 from django.contrib import messages
 from django.contrib.messages import SUCCESS
-from django.forms import BaseInlineFormSet
 from django.shortcuts import redirect
 from django.utils.functional import cached_property
 from django.views.generic import TemplateView
@@ -11,7 +7,6 @@ from django.views.generic import TemplateView
 from raporty_siecobywatelska_pl.answers.models import Answer
 from raporty_siecobywatelska_pl.institutions.models import Institution
 from raporty_siecobywatelska_pl.questionnaire.models import Question
-from raporty_siecobywatelska_pl.exploration.models import Exploration
 
 
 # class AnswerForm(forms.ModelForm):

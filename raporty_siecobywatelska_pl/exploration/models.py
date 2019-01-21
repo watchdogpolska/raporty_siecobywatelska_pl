@@ -28,7 +28,7 @@ class Exploration(TimeStampedModel):
     description = models.TextField()
     institutions = models.ManyToManyField(Institution, blank=True, related_name="explorations")
     requirement_of_credibility = models.IntegerField(default=200)
-    for_exclusive_group = models.BooleanField(default=True)
+    # for_exclusive_group = models.BooleanField(default=True)
     objects = ExplorationManager()
 
     class Meta:
