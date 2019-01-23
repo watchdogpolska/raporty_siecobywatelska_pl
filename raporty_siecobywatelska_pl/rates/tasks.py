@@ -8,7 +8,7 @@ from raporty_siecobywatelska_pl.rates.calculators import refresh_groups_institut
 
 @shared_task(name="rates:refresh_rates")
 def refresh_rates(exploration_id):
-    exploration = Exploration.objects.filter(exploration_id=exploration_id).get()
+    exploration = Exploration.objects.filter(id=exploration_id).first()
 
     for institution in exploration.institutions.all():
         refresh_groups_institution_rates(institution, exploration)

@@ -5,6 +5,7 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 from django_extensions.db.fields import CreationDateTimeField
 
+from raporty_siecobywatelska_pl.exploration.models import Exploration
 from raporty_siecobywatelska_pl.institutions.models import Institution
 
 
@@ -35,7 +36,7 @@ class AnswersCredibilityPoints(models.Model):
         related_name = '+'
     )
     exploration = models.ForeignKey(
-        to=Institution,
+        to=Exploration,
         on_delete=models.CASCADE,
         related_name = '+'
     )

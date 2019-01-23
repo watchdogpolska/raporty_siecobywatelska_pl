@@ -15,7 +15,9 @@ services:
   web:
     <<: *python
     image: raporty_local_python
-    command: bash -c "sleep 5 && python3 manage.py runserver 0.0.0.0:8000"
+#    command: bash -c "sleep 5 && python3 manage.py runserver 0.0.0.0:8000"
+    command: bash -c "sleep 5 && while true; do sleep 5; done;"
+
     ports:
       - "8000:8000"
 

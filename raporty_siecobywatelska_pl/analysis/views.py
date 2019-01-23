@@ -1,7 +1,5 @@
 from django.views.generic import TemplateView
 
-from raporty_siecobywatelska_pl.analysis.tables import InstitutionCompareView
-from raporty_siecobywatelska_pl.institutions.models import Institution
 from raporty_siecobywatelska_pl.rates.models import InstitutionExplorationRate
 
 

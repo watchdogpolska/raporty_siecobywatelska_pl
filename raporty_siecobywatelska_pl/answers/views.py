@@ -7,7 +7,7 @@ from django.views.generic import TemplateView
 from raporty_siecobywatelska_pl.answers.models import Answer
 from raporty_siecobywatelska_pl.institutions.models import Institution
 from raporty_siecobywatelska_pl.questionnaire.models import Question
-
+from .tasks import verify_answers
 
 # class AnswerForm(forms.ModelForm):
 #     value = forms.IntegerField(min_value=-2, max_value=2)
@@ -80,7 +80,10 @@ class AnswerSaveView(TemplateView):
                     question_id=question_id,
                     user_id=request.user.id
                 ).save()
-
+        verify_answers.delay(
+            exploration_id=self.request.exploration.pk,
+            institution_id=self.institution.pk
+        )
         messages.add_message(request, SUCCESS, 'Odpowiedzi zapisane')
 
         return redirect('/')
