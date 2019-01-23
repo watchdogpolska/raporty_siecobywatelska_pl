@@ -18,7 +18,6 @@ def verify_answers(exploration_id, institution_id):
         question__group__exploration_id=exploration.id,
         institution_id=institution_id
     )
-    # Delete old results
     Result.objects.filter(
         question__group__exploration_id=exploration.id,
         institution_id=institution_id
@@ -27,6 +26,7 @@ def verify_answers(exploration_id, institution_id):
     users = ({answer.user.id: answer.user for answer in answers}).values()
     sum_point_of_credibility = sum([user.point_of_credibility for user in users])
 
+    # SPraw
     if sum_point_of_credibility < exploration.requirement_of_credibility:
         return
 

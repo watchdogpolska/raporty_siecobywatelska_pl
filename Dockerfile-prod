@@ -1,0 +1,34 @@
+FROM node:10 as frontend-builder
+
+WORKDIR /app
+COPY package.json package-lock.json /app/
+RUN npm install
+
+COPY . /app
+
+RUN npx gulp build
+
+FROM python:3.6
+
+ENV PYTHONUNBUFFERED 1
+
+RUN useradd --create-home raporty_siecobywatelska_pl
+
+RUN mkdir /app
+WORKDIR /app
+
+RUN pip install --upgrade pip --disable-pip-version-check --no-cache-dir
+
+COPY requirements/base.txt /app/requirements/
+COPY requirements/production.txt /app/requirements/
+
+RUN pip install -r /app/requirements/production.txt  --disable-pip-version-check && rm -rf /root/.cache/
+
+COPY . /app/
+COPY --from=frontend-builder /app/raporty_siecobywatelska_pl/static /app/raporty_siecobywatelska_pl/static
+
+RUN chown -R raporty_siecobywatelska_pl /app
+
+USER raporty_siecobywatelska_pl
+
+CMD ["echo Set command"]

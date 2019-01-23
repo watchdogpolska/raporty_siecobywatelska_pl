@@ -107,7 +107,8 @@ gulp.task('watch', function() {
   gulp.watch(paths.templates + '/**/*.html').on("change", reload);
 });
 
-// Default task
+gulp.task('build', ['styles', 'scripts', 'imgCompression']);
+
 gulp.task('default', function() {
     runSequence(
       ['styles', 'scripts', 'imgCompression'],

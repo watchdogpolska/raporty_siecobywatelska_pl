@@ -81,7 +81,6 @@ class AnswerSaveView(TemplateView):
                     user_id=request.user.id
                 ).save()
 
-
         messages.add_message(request, SUCCESS, 'Odpowiedzi zapisane')
 
         return redirect('/')

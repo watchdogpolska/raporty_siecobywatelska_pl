@@ -1,7 +1,5 @@
-from django.utils.functional import cached_property
 from django.views.generic import DetailView, ListView
 
-from raporty_siecobywatelska_pl.exploration.models import Exploration
 from raporty_siecobywatelska_pl.articles.models import Article
 
 

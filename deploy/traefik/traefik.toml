@@ -1,0 +1,37 @@
+debug = false
+
+logLevel = "DEBUG"
+defaultEntryPoints = ["https","http"]
+
+[entryPoints]
+  [entryPoints.http]
+  address = ":80"
+  [entryPoints.http.redirect]
+    entryPoint = "https"
+  [entryPoints.https]
+  address = ":443"
+    [entryPoints.https.tls]
+
+[retry]
+
+[docker]
+endpoint = "unix:///var/run/docker.sock"
+watch = true
+exposedByDefault = false
+network = "web"
+
+[acme]
+email = "it@polidea.com"
+storage = "acme.json"
+entryPoint = "https"
+onHostRule = true
+
+[[acme.domains]]
+  main = "timesheet.polidea.com"
+
+[acme.httpChallenge]
+  entryPoint = "http"
+
+[api]
+dashboard = true
+

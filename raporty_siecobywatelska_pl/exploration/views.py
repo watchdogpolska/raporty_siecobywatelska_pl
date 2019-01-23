@@ -6,8 +6,6 @@ from django.views.generic import ListView, DetailView, RedirectView
 
 from raporty_siecobywatelska_pl.articles.models import Article
 from raporty_siecobywatelska_pl.exploration import models
-from raporty_siecobywatelska_pl.exploration.models import Exploration
-from raporty_siecobywatelska_pl.institutions.models import Institution
 from raporty_siecobywatelska_pl.questionnaire.models import Group
 
 
