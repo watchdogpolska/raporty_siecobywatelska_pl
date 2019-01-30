@@ -1,0 +1,14 @@
+steps:
+  - name: 'docker/compose:1.15.0'
+    args: ['-f', 'docker-compose-local.yml', 'up', '-d']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['run', '-ti', 'exec', 'raporty_siecobywatelska_pl_web_1', './manage.py', 'test']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['tag', 'raporty_local_python:latest', 'gcr.io/$PROJECT_ID/$COMMIT_SHA:latest']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['tag', 'raporty_local_python:latest', 'gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA']
+
+images: [
+  'gcr.io/$PROJECT_ID/$COMMIT_SHA:latest',
+  'gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA',
+]

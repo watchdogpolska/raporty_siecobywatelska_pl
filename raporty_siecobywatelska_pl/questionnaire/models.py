@@ -2,6 +2,7 @@ from autoslug import AutoSlugField
 from django.core.urlresolvers import reverse
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
+from django.db.models import QuerySet
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 from tinymce.models import HTMLField
@@ -40,12 +41,19 @@ class Group(models.Model):
         return self.name
 
 
+class QuestionQuerySet(QuerySet):
+    def for_exploration(self, exploration):
+        return self.filter(group__exploration=exploration)
+
+
 @python_2_unicode_compatible
 class Question(models.Model):
     name = models.CharField(max_length=250, verbose_name=_("Name"))
     description = HTMLField(verbose_name=_("Description"))
 
     group = models.ForeignKey(Group, on_delete=models.CASCADE)
+
+    objects = QuestionQuerySet.as_manager()
 
     class Meta:
         verbose_name = _("Question")

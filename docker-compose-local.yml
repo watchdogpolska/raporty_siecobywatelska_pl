@@ -44,17 +44,11 @@ services:
 
   celery_worker:
     <<: *python
-    build:
-      context: .
-      dockerfile: ./compose/local/python/Dockerfile
     image: raporty_local_celery_worker
     command: celery worker --app=raporty_siecobywatelska_pl.taskapp -E --loglevel=info
 
   celery_beat:
     <<: *python
-    build:
-      context: .
-      dockerfile: ./compose/local/python/Dockerfile
     image: raporty_local_celery_beat
     command: celery beat --app=raporty_siecobywatelska_pl.taskapp -E --loglevel=info
 
